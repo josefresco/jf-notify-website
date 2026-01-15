@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Forms Telegram Notifications - WordPress Plugin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #0088cc;
+        }
+
+        .nav-btn {
+            background: #0088cc;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #006699;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e8f4f8;
+            color: #0088cc;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #0088cc;
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #006699;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #1a1a2e;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #eee;
+        }
+
+        /* Problem/Solution */
+        .problem {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 48px;
+        }
+
+        .problem-content h2 {
+            color: #c0392b;
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+        }
+
+        .solution-content h2 {
+            color: #27ae60;
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+        }
+
+        .problem-content p,
+        .solution-content p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .problem-list,
+        .solution-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .problem-list li,
+        .solution-list li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+            color: #444;
+        }
+
+        .problem-list li::before {
+            content: "\2717";
+            position: absolute;
+            left: 0;
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        .solution-list li::before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+            background: #f9fafb;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 80px 0;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: #0088cc;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Screenshot */
+        .screenshot {
+            padding: 80px 0;
+            background: #f9fafb;
+        }
+
+        .screenshot h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .screenshot > .container > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 48px;
+        }
+
+        .screenshot-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .screenshot-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Preview */
+        .preview {
+            padding: 80px 0;
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .preview h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .preview > .container > p {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 48px;
+        }
+
+        .message-preview {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #2a2a3e;
+            border-radius: 12px;
+            padding: 24px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .message-preview .emoji {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 0;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .pricing > .container > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 48px;
+        }
+
+        .price-card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            border: 2px solid #0088cc;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .price-desc {
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .price-features {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .price-features li {
+            list-style: none;
+            padding: 8px 0;
+            color: #444;
+        }
+
+        .price-features li::before {
+            content: "\2713";
+            color: #0088cc;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #0088cc;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features, .how-it-works, .preview, .pricing {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">GF <span>Telegram</span></a>
+            <a href="#pricing" class="nav-btn">Get Plugin</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="badge">WordPress Plugin</div>
+            <h1>Stop Missing Leads.<br>Get Instant Telegram Alerts.</h1>
+            <p>WordPress emails fail silently. Spam filters block notifications. Don't let another customer slip away. Get form submissions delivered instantly to your phone.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn-primary">Get Started</a>
+                <a href="#features" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="container">
+            <div class="problem-grid">
+                <div class="problem-content">
+                    <h2>WordPress Email is Broken</h2>
+                    <p>If you're relying on WordPress emails to notify you about form submissions, you're likely missing leads right now.</p>
+                    <ul class="problem-list">
+                        <li><strong>Spam filters</strong> silently delete your notifications</li>
+                        <li><strong>Shared hosting</strong> blocks or delays outgoing mail</li>
+                        <li><strong>No delivery confirmation</strong> means you never know what you missed</li>
+                        <li><strong>Email overload</strong> buries important submissions in your inbox</li>
+                    </ul>
+                    <p>For small business owners, every missed inquiry is lost revenue. A customer who doesn't hear back moves on to your competitor.</p>
+                </div>
+                <div class="solution-content">
+                    <h2>Telegram: Your Reliable Backup</h2>
+                    <p>Telegram notifications arrive instantly on your phone, every single time. No spam filters. No delays. No excuses.</p>
+                    <ul class="solution-list">
+                        <li><strong>Instant delivery</strong> - notifications arrive in seconds</li>
+                        <li><strong>100% reliable</strong> - bypasses email infrastructure entirely</li>
+                        <li><strong>Push notifications</strong> - your phone buzzes immediately</li>
+                        <li><strong>Works everywhere</strong> - desktop, mobile, tablet</li>
+                    </ul>
+                    <p>Use it as your primary notification or as a backup alongside email. Either way, you'll never miss another lead.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Built for Small Business Owners</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#9889;</div>
+                    <h3>Instant Delivery</h3>
+                    <p>Notifications arrive in seconds, not minutes. Respond to inquiries before your competitors even know they exist.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128176;</div>
+                    <h3>Never Miss a Sale</h3>
+                    <p>Every form submission means potential revenue. Get alerted immediately so leads don't go cold waiting for your response.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9745;</div>
+                    <h3>Choose Your Forms</h3>
+                    <p>Only get notified about what matters. High-value contact forms, quote requests, or all forms - you decide.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128202;</div>
+                    <h3>Delivery Confirmation</h3>
+                    <p>Unlike email, you'll know every notification was delivered. Activity logs show exactly what was sent and when.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128274;</div>
+                    <h3>No Third-Party Services</h3>
+                    <p>No monthly fees for email delivery services. Direct connection to Telegram means no middleman and no extra costs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128241;</div>
+                    <h3>Always With You</h3>
+                    <p>On-site with a client? At your kid's game? Notifications reach your phone instantly, wherever you are.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create a Telegram Bot</h3>
+                    <p>Message @BotFather on Telegram to create your bot and get your API token.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Install the Plugin</h3>
+                    <p>Upload to WordPress and enter your bot token and chat ID in settings.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Notified</h3>
+                    <p>Receive instant Telegram messages whenever someone submits a form.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshot">
+        <div class="container">
+            <h2>Simple, Intuitive Settings</h2>
+            <p>Everything you need in one clean interface. No confusing options.</p>
+            <div class="screenshot-wrapper">
+                <img src="gravity-forms-telegram-notifier-settings.png" alt="Gravity Forms Telegram Notifications Settings">
+            </div>
+        </div>
+    </section>
+
+    <section class="preview">
+        <div class="container">
+            <h2>Clean, Readable Messages</h2>
+            <p>Every submission arrives formatted and easy to read</p>
+            <div class="message-preview">
+                <span class="emoji">&#128221;</span> <strong>New Form Submission</strong><br><br>
+                <strong>Form:</strong> Contact Form<br>
+                <strong>Entry ID:</strong> 1247<br>
+                <strong>Date:</strong> 2026-01-15 10:30:00<br><br>
+                <strong>Submitted Data:</strong><br>
+                <strong>Name:</strong> John Smith<br>
+                <strong>Email:</strong> john@example.com<br>
+                <strong>Message:</strong> I'd like to learn more...
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>One Price. No Monthly Fees.</h2>
+            <p>Stop paying for expensive and complicated transactional email services. One purchase, works forever.</p>
+            <div class="price-card">
+                <div class="price">$29 <span>one-time</span></div>
+                <p class="price-desc">Pays for itself with one saved lead</p>
+                <ul class="price-features">
+                    <li>Instant notifications to your phone</li>
+                    <li>Unlimited forms & submissions</li>
+                    <li>Use on unlimited websites</li>
+                    <li>Delivery confirmation logs</li>
+                    <li>Lifetime updates included</li>
+                    <li>No recurring fees ever</li>
+                </ul>
+                <a href="#" class="btn-primary" style="display: block;">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 GF Telegram. Created by <a href="https://github.com/josefresco">josefresco</a></p>
+        </div>
+    </footer>
+</body>
+</html>
