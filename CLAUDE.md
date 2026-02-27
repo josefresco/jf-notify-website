@@ -68,7 +68,8 @@ Cloudflare Pages Function. Handles `POST /api/webhook` from Stripe.
 ## Key Details
 
 - The **plugin code itself is not in this repo**: `https://github.com/josefresco/gravity-forms-telegram-notifier`
-- Currently staged at: `https://josefresco.github.io/gravity-forms-telegram-notifier-site/`
+- Live at: `http://josefresco.com/jf-notify-website/`
+- GitHub repo: `https://github.com/josefresco/jf-notify-website`
 - Target deployment: **Cloudflare Pages** (required for the Pages Function webhook handler — GitHub Pages cannot run serverless functions)
 
 ## Pending: Deployment Setup
