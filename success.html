@@ -3,82 +3,172 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Purchase Complete - JF Notify</title>
+  <title>Purchase Complete &mdash; JF Notify</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #07070D;
+      --surface:   #0C0C16;
+      --surface-2: #131320;
+      --border:    #1C1C2E;
+      --accent:    #00D9F5;
+      --green:     #00F587;
+      --text:      #DDDDF0;
+      --muted:     #5C5C80;
+    }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f9fafb;
-      color: #1a1a2e;
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      position: relative;
+      overflow: hidden;
     }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(28,28,46,0.8) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes checkIn {
+      0%   { stroke-dashoffset: 40; opacity: 0; }
+      60%  { opacity: 1; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes ringExpand {
+      0%   { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 24px rgba(0,245,135,0.2); }
+      50%       { box-shadow: 0 0 48px rgba(0,245,135,0.35); }
+    }
+
     .card {
-      background: #fff;
-      border-radius: 16px;
-      border: 1px solid #eee;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
       padding: 56px 48px;
-      max-width: 520px;
+      max-width: 480px;
       width: 100%;
       text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.6s ease forwards;
     }
-    .icon {
-      width: 64px;
-      height: 64px;
-      background: #e8f8ef;
-      border-radius: 50%;
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+
+    .check-ring {
+      width: 72px;
+      height: 72px;
+      border: 1px solid rgba(0,245,135,0.4);
+      background: rgba(0,245,135,0.07);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 1.75rem;
+      margin: 0 auto 28px;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      animation: ringExpand 0.5s ease 0.1s both, glowPulse 3s ease-in-out 0.6s infinite;
     }
+    .check-ring svg {
+      width: 32px;
+      height: 32px;
+    }
+    .check-ring svg path {
+      stroke: var(--green);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 40;
+      stroke-dashoffset: 40;
+      animation: checkIn 0.5s ease 0.4s forwards;
+    }
+
     h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 12px;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.8rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 16px;
+      color: var(--text);
     }
-    p {
-      color: #666;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 32px;
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 36px;
     }
+    .subtitle strong { color: var(--text); }
+
     .btn {
       display: inline-block;
-      background: #0088cc;
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 8px;
-      text-decoration: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
       font-weight: 600;
-      font-size: 0.95rem;
-      transition: background 0.2s;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 13px 28px;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      transition: background 0.2s, transform 0.15s;
     }
-    .btn:hover { background: #006699; }
+    .btn:hover { background: #fff; transform: translateY(-2px); }
+
     .note {
-      margin-top: 24px;
-      font-size: 0.85rem;
-      color: #999;
+      margin-top: 20px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 520px) {
+      .card { padding: 36px 24px; }
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="icon">&#10003;</div>
-    <h1>You're all set!</h1>
-    <p>
+    <div class="check-ring">
+      <svg viewBox="0 0 32 32">
+        <path d="M6 16 L13 23 L26 9" />
+      </svg>
+    </div>
+    <h1>You&rsquo;re All Set</h1>
+    <p class="subtitle">
       Your purchase is confirmed. Check your inbox &mdash; a download link for
       <strong>JF Notify</strong> is on its way.
     </p>
     <a href="/" class="btn">Back to Home</a>
-    <p class="note">Didn't get the email? Check your spam folder or reply to your receipt and I'll sort it out.</p>
+    <p class="note">
+      Didn&rsquo;t get the email? Check your spam folder or reply to your
+      Stripe receipt and I&rsquo;ll sort it out.
+    </p>
   </div>
 </body>
 </html>
