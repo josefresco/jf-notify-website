@@ -100,29 +100,28 @@ async function sendPurchaseEmail(email, name, apiKey, senderEmail, senderName) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Plugin Download</title>
 </head>
-<body style="margin:0;padding:0;background:#f9fafb;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;">
-  <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:12px;border:1px solid #eee;overflow:hidden;">
-    <div style="background:#0088cc;padding:32px 40px;">
-      <h1 style="color:#fff;margin:0;font-size:1.4rem;font-weight:600;">Thanks for your purchase!</h1>
+<body style="margin:0;padding:0;background:#0C0C16;font-family:'IBM Plex Mono',Courier,monospace;">
+  <div style="max-width:560px;margin:40px auto;background:#131320;border:1px solid #1C1C2E;overflow:hidden;">
+    <div style="background:#07070D;padding:28px 40px;border-bottom:1px solid #1C1C2E;">
+      <div style="font-size:1.4rem;font-weight:800;letter-spacing:0.04em;color:#00D9F5;">JF<span style="color:#DDDDF0;">Notify</span></div>
     </div>
     <div style="padding:40px;">
-      <p style="color:#1a1a2e;font-size:1rem;margin:0 0 24px;">Hi ${firstName},</p>
-      <p style="color:#444;font-size:0.95rem;margin:0 0 24px;">
-        Your copy of <strong>JF Notify</strong> is ready to download.
-        Click the button below to get the plugin zip file.
+      <p style="color:#DDDDF0;font-size:0.95rem;margin:0 0 20px;">Hi ${firstName},</p>
+      <p style="color:#5C5C80;font-size:0.88rem;margin:0 0 32px;line-height:1.8;">
+        Your copy of <strong style="color:#DDDDF0;">JF Notify</strong> is ready. Click below to download the plugin zip file.
       </p>
       <a href="${DOWNLOAD_URL}"
-         style="display:inline-block;background:#0088cc;color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:1rem;">
+         style="display:inline-block;background:#00D9F5;color:#07070D;padding:14px 32px;text-decoration:none;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;">
         Download Plugin
       </a>
-      <hr style="border:none;border-top:1px solid #eee;margin:40px 0;">
-      <h2 style="color:#1a1a2e;font-size:1rem;font-weight:600;margin:0 0 16px;">Quick setup:</h2>
-      <ol style="color:#444;font-size:0.9rem;padding-left:20px;line-height:1.8;margin:0 0 24px;">
+      <div style="border-top:1px solid #1C1C2E;margin:40px 0;"></div>
+      <p style="color:#00D9F5;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;margin:0 0 14px;">Quick Setup</p>
+      <ol style="color:#5C5C80;font-size:0.82rem;padding-left:20px;line-height:2;margin:0 0 28px;">
         <li>Upload and activate the plugin in WordPress</li>
-        <li>Message <strong>@BotFather</strong> on Telegram to create a bot and get your API token</li>
-        <li>Enter your bot token and chat ID in <strong>Settings → JF Notify</strong></li>
+        <li>Message <strong style="color:#DDDDF0;">@BotFather</strong> on Telegram to create a bot and get your API token</li>
+        <li>Enter your bot token and chat ID in <strong style="color:#DDDDF0;">Settings → JF Notify</strong></li>
       </ol>
-      <p style="color:#888;font-size:0.85rem;margin:0;">
+      <p style="color:#5C5C80;font-size:0.78rem;margin:0;line-height:1.7;">
         Questions? Reply to this email and I'll help you get set up.
       </p>
     </div>

@@ -72,14 +72,13 @@ Cloudflare Pages Function. Handles `POST /api/webhook` from Stripe.
 - GitHub repo: `https://github.com/josefresco/jf-notify-website`
 - Target deployment: **Cloudflare Pages** (required for the Pages Function webhook handler — GitHub Pages cannot run serverless functions)
 
-## Pending: Deployment Setup
+## Deployment Checklist
 
-The following steps are not yet complete — pick up here next session:
-
-1. **Register domain** via Cloudflare Registrar (~$10/yr at-cost). Name TBD — candidates: `gftelegram.com`, `gf-telegram-notifier.com`, `gftelegramnotifier.com`
-2. **Connect GitHub repo → Cloudflare Pages** (no build command, output directory `/`)
-3. **Assign custom domain** to the Pages project (SSL automatic)
-4. **Set environment variables** in Cloudflare Pages project settings (see table above)
-5. **Register Stripe webhook** endpoint: `https://yourdomain.com/api/webhook`, event: `checkout.session.completed`
-6. **Set Stripe Payment Link** success redirect to: `https://yourdomain.com/success.html`
-7. **Verify Brevo sender email** is confirmed in Brevo account
+- [x] Domain `jfnotify.com` registered (Namecheap) — DNS → Cloudflare
+- [x] Cloudflare Pages connected to `jf-notify-website` GitHub repo
+- [x] Custom domain assigned, SSL live
+- [x] Cloudflare Pages env vars set (`STRIPE_WEBHOOK_SECRET`, `BREVO_API_KEY`, `SENDER_EMAIL`, `SENDER_NAME`)
+- [x] Stripe webhook registered at `https://jfnotify.com/api/webhook`
+- [ ] Stripe Payment Link success redirect → `https://jfnotify.com/success.html`
+- [ ] Verify Brevo sender email is confirmed
+- [ ] End-to-end test purchase
