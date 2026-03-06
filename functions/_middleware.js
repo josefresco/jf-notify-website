@@ -42,6 +42,11 @@ export async function onRequest(context) {
     headers: new Headers(asset.headers),
   });
 
+  // Prevent Cloudflare from caching the A/B response — each visitor must hit the function
+  res.headers.set('Cache-Control', 'no-store');
+  // Vary on Cookie so CDN knows responses differ per visitor
+  res.headers.set('Vary', 'Cookie');
+
   // Set cookie on first visit
   if (isNew) {
     res.headers.append(
