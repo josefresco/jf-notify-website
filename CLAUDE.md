@@ -89,6 +89,42 @@ Cloudflare Pages Function. Handles `POST /api/webhook` from Stripe.
 | `SENDER_EMAIL` | Verified Brevo sender address |
 | `SENDER_NAME` | e.g. `GF Telegram Notifier` |
 
+## Adding a New Blog Post
+
+Create `src/blog/your-slug.njk` with front matter and content — no boilerplate HTML needed:
+
+```njk
+---
+title: Your Post Title
+description: Meta description for SEO.
+date: 2026-03-07
+tag: Guide
+readTime: 5 min read
+ctaTitle: CTA Heading
+ctaText: CTA body text.
+related:
+  - url: /blog/some-other-post.html
+    tag: Tutorial
+    title: Some Other Post Title
+schema: >
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Your Post Title",
+    "description": "Meta description.",
+    "datePublished": "2026-03-07",
+    "dateModified": "2026-03-07",
+    "author": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" },
+    "publisher": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://jfnotify.com/blog/your-slug.html" }
+  }
+---
+
+<p>Article content goes here...</p>
+```
+
+Then add a card for it in `src/blog/index.njk`.
+
 ## Key Details
 
 - The **plugin code itself is not in this repo**: `https://github.com/josefresco/gravity-forms-telegram-notifier`
