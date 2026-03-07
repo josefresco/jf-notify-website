@@ -73,6 +73,9 @@
     .logo span { color: var(--text); }
     .nav-cta { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--bg); background: var(--accent); padding: 8px 20px; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); transition: background 0.2s; }
     .nav-cta:hover { background: #fff; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 0.2s; }
+    .nav-link:hover { color: var(--accent); }
 
     /* Article header */
     .article-header { padding: 72px 0 48px; border-bottom: 1px solid var(--border); }
@@ -147,7 +150,10 @@
   <header role="banner">
     <div class="container--wide header-inner">
       <a href="https://jfnotify.com/" class="logo">JF<span>Notify</span></a>
-      <a href="https://jfnotify.com/#pricing" class="nav-cta">Get Plugin — $29</a>
+      <nav class="header-nav" aria-label="Site navigation">
+        <a href="https://jfnotify.com/blog/" class="nav-link">Resources</a>
+        <a href="https://jfnotify.com/#pricing" class="nav-cta">Get Plugin — $29</a>
+      </nav>
     </div>
   </header>
 
@@ -291,7 +297,7 @@
     <div class="container--wide">
       <div class="footer-inner">
         <p>&copy; 2026 JF Notify. Created by <a href="https://github.com/josefresco">josefresco</a></p>
-        <p><a href="https://github.com/josefresco/gravity-forms-telegram-notifier/issues">Support &rarr;</a></p>
+        <p><a href="mailto:hello@jfnotify.com">hello@jfnotify.com</a></p>
       </div>
       <p class="footer-disclaimer">This plugin is not affiliated with, endorsed by, or associated with Gravity Forms, Telegram, or WordPress.</p>
     </div>

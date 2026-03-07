@@ -292,6 +292,9 @@
       transition: background 0.2s, transform 0.15s;
     }
     .nav-cta:hover { background: #fff; transform: translateY(-1px); }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 0.2s; }
+    .nav-link:hover { color: var(--accent); }
 
     /* ── Hero ── */
     .hero {
@@ -802,7 +805,10 @@
   <header role="banner">
     <div class="container header-inner">
       <a href="#" class="logo">JF<span>Notify</span></a>
-      <a href="#pricing" class="nav-cta">Get Plugin</a>
+      <nav class="header-nav" aria-label="Site navigation">
+        <a href="/blog/" class="nav-link">Resources</a>
+        <a href="#pricing" class="nav-cta">Get Plugin</a>
+      </nav>
     </div>
   </header>
 
@@ -1047,7 +1053,7 @@
     <div class="container">
       <div class="footer-inner">
         <p>&copy; 2026 JF Notify. Created by <a href="https://github.com/josefresco">josefresco</a></p>
-        <p><a href="/blog/">Resources &rarr;</a> &nbsp; <a href="https://github.com/josefresco/gravity-forms-telegram-notifier/issues">Support &rarr;</a></p>
+        <p><a href="mailto:hello@jfnotify.com">hello@jfnotify.com</a></p>
       </div>
       <p class="footer-disclaimer">This plugin is not affiliated with, endorsed by, or associated with Gravity Forms, Telegram, or WordPress.</p>
     </div>
