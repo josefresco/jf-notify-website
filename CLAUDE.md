@@ -4,43 +4,67 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static HTML landing/sales page for the **Gravity Forms Telegram Notifier** WordPress plugin. Single self-contained file with no build tooling, frameworks, or package managers.
+Marketing site for the **Gravity Forms Telegram Notifier** WordPress plugin. Built with **Eleventy 3.x** (SSG). Blog/resource pages use shared Nunjucks layouts. Homepage A/B variants are passthrough-copied static HTML files.
 
 ## Structure
 
 ```
 /
-├── index.html                          # Entire site — HTML + embedded CSS
-├── success.html                        # Post-purchase thank-you page (Stripe redirect target)
+├── src/                                # Eleventy input directory
+│   ├── index.html                      # Main homepage (passthrough — dark theme)
+│   ├── index-v1.html … index-v5.html   # A/B test variants (passthrough)
+│   ├── success.html                    # Post-purchase thank-you (passthrough)
+│   ├── robots.txt / sitemap.xml / llms.txt
+│   ├── *.png                           # Plugin logo/screenshot assets
+│   ├── assets/
+│   │   └── css/blog.css               # All styles for blog/resource pages
+│   ├── _includes/
+│   │   ├── layouts/
+│   │   │   ├── base.njk               # HTML shell (head, fonts, shared partials)
+│   │   │   └── post.njk               # Blog post layout (extends base)
+│   │   └── partials/
+│   │       ├── header.njk             # Dark branded header (shared)
+│   │       └── footer.njk             # Dark branded footer (shared)
+│   └── blog/
+│       ├── blog.11tydata.json         # Default front matter for all posts
+│       ├── index.njk                  # Blog listing page (/blog/)
+│       └── *.njk                      # Individual blog post templates
+├── _site/                              # Eleventy build output (gitignored)
 ├── functions/
+│   ├── _middleware.js                  # A/B test router (Cloudflare Pages Function)
 │   └── api/
-│       └── webhook.js                  # Cloudflare Pages Function — Stripe webhook handler
-├── gf-logo.png                         # Plugin logo assets
-├── gf-logo-cropped.png
-├── gf-logo-simple.png
-└── gravity-forms-telegram-notifier-settings.png  # Plugin screenshot
+│       └── webhook.js                 # Stripe webhook handler
+├── eleventy.config.js
+├── package.json
+└── .eleventyignore                     # Excludes homepage HTML from template processing
 ```
 
 ## Development
 
-No build step. Edit `index.html` directly.
-
-**To preview locally:**
 ```bash
-# Python (usually pre-installed)
-python -m http.server 8080
-
-# Node (if available)
-npx serve .
+npm install        # First time
+npm run dev        # Serve locally with live reload (http://localhost:8080)
+npm run build      # Production build to _site/
 ```
 
 ## Architecture
 
-Everything lives in `index.html`:
-- All CSS is embedded in a `<style>` block in `<head>`
-- No JavaScript (pure HTML/CSS)
-- Responsive layout via CSS Grid and Flexbox
-- Sections: Header → Hero → Problem/Solution → Features → How It Works → Screenshot → Message Preview → Pricing → Footer
+### Blog / Resource Pages
+- **Light/white design** with dark branded header and footer
+- Layout chain: post content → `post.njk` → `base.njk`
+- All styles in `src/assets/css/blog.css` (external file, not embedded)
+- Blog post front matter: `title`, `description`, `date`, `tag`, `readTime`, `ctaTitle`, `ctaText`, `related[]`, `schema`
+- Permalink pattern: `/blog/{{ page.fileSlug }}.html` (preserves existing links in A/B variants)
+
+### Homepage A/B Testing
+- `functions/_middleware.js` intercepts `/` requests and randomly assigns one of 5 variants
+- Variant files (`index-v1.html` through `index-v5.html`) are passthrough-copied to `_site/`
+- Listed in `.eleventyignore` to prevent Eleventy from treating them as templates
+
+### Cloudflare Pages Functions
+- `functions/` directory stays at repo root (not in `src/`) — Cloudflare Pages reads it independently
+- Build command: `npm run build`
+- Output directory: `_site`
 
 **Checkout:** Stripe Payment Link — `https://buy.stripe.com/7sY9ATeD40sn1Gg95P5os02` ($29 one-time).
 
@@ -70,7 +94,7 @@ Cloudflare Pages Function. Handles `POST /api/webhook` from Stripe.
 - The **plugin code itself is not in this repo**: `https://github.com/josefresco/gravity-forms-telegram-notifier`
 - Live at: `https://jfnotify.com`
 - GitHub repo: `https://github.com/josefresco/jf-notify-website`
-- Target deployment: **Cloudflare Pages** (required for the Pages Function webhook handler — GitHub Pages cannot run serverless functions)
+- Target deployment: **Cloudflare Pages**
 
 ## Deployment Checklist
 
@@ -79,6 +103,7 @@ Cloudflare Pages Function. Handles `POST /api/webhook` from Stripe.
 - [x] Custom domain assigned, SSL live
 - [x] Cloudflare Pages env vars set (`STRIPE_WEBHOOK_SECRET`, `BREVO_API_KEY`, `SENDER_EMAIL`, `SENDER_NAME`)
 - [x] Stripe webhook registered at `https://jfnotify.com/api/webhook`
+- [x] Eleventy build configured (build command: `npm run build`, output: `_site`)
 - [ ] Stripe Payment Link success redirect → `https://jfnotify.com/success.html`
 - [ ] Verify Brevo sender email is confirmed
 - [ ] End-to-end test purchase

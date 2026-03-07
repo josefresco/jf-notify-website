@@ -1,0 +1,120 @@
+---
+title: How to Get Instant Push Notifications from Gravity Forms Using Telegram
+description: "Step-by-step tutorial: set up instant Telegram push notifications for every Gravity Forms submission. Create your bot, install the plugin, and go live in under 10 minutes."
+date: 2026-03-07
+tag: Tutorial
+readTime: 10 min read
+ctaTitle: Ready to Set It Up?
+ctaText: Get JF Notify for $29 one-time. Works on unlimited WordPress sites. Telegram delivery confirmed in under 10 minutes.
+related:
+  - url: /blog/telegram-backup-wordpress-email.html
+    tag: Strategy
+    title: Use Telegram as a Failsafe Backup for Your WordPress Form Emails
+  - url: /blog/telegram-vs-email-form-notifications.html
+    tag: Comparison
+    title: "Telegram vs Email for WordPress Form Notifications: A Complete Comparison"
+schema: >
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Get Instant Push Notifications from Gravity Forms Using Telegram",
+    "description": "Connect Gravity Forms to Telegram so every form submission triggers an instant push notification to your phone.",
+    "totalTime": "PT10M",
+    "step": [
+      { "@type": "HowToStep", "name": "Create a Telegram Bot", "text": "Message @BotFather on Telegram, send /newbot, choose a name and username, and copy your API token." },
+      { "@type": "HowToStep", "name": "Get your Chat ID", "text": "Send a message to your new bot, then visit the getUpdates API endpoint to find your numeric chat ID." },
+      { "@type": "HowToStep", "name": "Install JF Notify", "text": "Purchase and download JF Notify, upload the plugin zip to WordPress, and activate it." },
+      { "@type": "HowToStep", "name": "Configure the plugin", "text": "Go to Settings > JF Notify, enter your bot token and chat ID, and save." },
+      { "@type": "HowToStep", "name": "Test with a form submission", "text": "Submit any Gravity Form on your site and confirm the Telegram message arrives within seconds." }
+    ],
+    "author": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" },
+    "publisher": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" }
+  }
+---
+
+<p>Every time someone submits a Gravity Forms form on your WordPress site, you should know about it within seconds — not when you happen to check your email. This tutorial walks through the complete setup for getting real-time Telegram push notifications for every Gravity Forms submission, using the <a href="https://jfnotify.com/">JF Notify</a> plugin.</p>
+
+<p>Total setup time: approximately 10 minutes. No coding required.</p>
+
+<div class="callout">
+  <strong>What you need</strong>
+  A WordPress site with Gravity Forms installed, a Telegram account (free), and a copy of JF Notify. That's it — no SMTP service, no extra API accounts, no monthly subscriptions.
+</div>
+
+<h2>Why Telegram for Gravity Forms Notifications?</h2>
+
+<p>Telegram's Bot API delivers messages via a direct HTTPS connection to Telegram's servers. When you submit a form, the plugin makes one API call — and your phone buzzes with a push notification before the submitter has finished reading the thank-you message.</p>
+
+<p>Unlike email, Telegram messages don't go through spam filters. Unlike push notification services (OneSignal, Pusher, etc.), the Telegram API is completely free with no per-message cost and no usage limits relevant to form notifications.</p>
+
+<h2>Step-by-Step Setup</h2>
+
+<div class="step-card" data-step="Step 1 of 5">
+  <h3>Create Your Telegram Bot</h3>
+  <p>Open Telegram and search for <strong>@BotFather</strong> — this is Telegram's official bot creation tool. Start a conversation and send the command <code>/newbot</code>.</p>
+  <p>BotFather will ask for a display name (e.g., "My Site Notify") and a username (must end in "bot", e.g., "mysitenotify_bot"). Once confirmed, BotFather sends you an <strong>API token</strong> — a long string that looks like <code>7123456789:AAHfiqksK55Wy-pEMAsdfXNj7OsFbdZ0abc</code>.</p>
+  <p>Copy this token and keep it safe. You'll need it in step 4.</p>
+</div>
+
+<div class="step-card" data-step="Step 2 of 5">
+  <h3>Get Your Chat ID</h3>
+  <p>Your Chat ID tells the bot where to send messages — your personal account, a group, or a channel. To find it:</p>
+  <p><strong>For your personal account:</strong> Send any message to your new bot (just open it and type "hello"). Then open a browser and visit: <code>https://api.telegram.org/bot&lt;YOUR_TOKEN&gt;/getUpdates</code> (replace &lt;YOUR_TOKEN&gt; with your actual token). Look for the <code>"chat"</code> object in the JSON response — your numeric ID is the <code>"id"</code> field inside it.</p>
+  <p><strong>For a group:</strong> Add your bot to the group, send a message in the group, then visit the same getUpdates URL. The chat ID for groups is a negative number (e.g., <code>-1001234567890</code>).</p>
+  <p>If getUpdates returns an empty result array, make sure you sent a message to the bot or group after creating it.</p>
+</div>
+
+<div class="step-card" data-step="Step 3 of 5">
+  <h3>Purchase and Install JF Notify</h3>
+  <p>Go to <a href="https://jfnotify.com/#pricing">jfnotify.com</a> and purchase the plugin ($29 one-time). After checkout, you'll receive an email with the plugin download link.</p>
+  <p>In your WordPress admin, go to <strong>Plugins &rarr; Add New &rarr; Upload Plugin</strong>. Select the downloaded .zip file and click Install Now. Once installed, click Activate.</p>
+</div>
+
+<div class="step-card" data-step="Step 4 of 5">
+  <h3>Configure JF Notify</h3>
+  <p>In WordPress admin, go to <strong>Settings &rarr; JF Notify</strong>. You'll see two fields:</p>
+  <p><strong>Bot Token:</strong> Paste the API token you received from BotFather.</p>
+  <p><strong>Chat ID:</strong> Enter the numeric chat ID from step 2. Include the negative sign if it's a group.</p>
+  <p>Save the settings. By default, JF Notify will send a notification for every Gravity Forms submission on your site. If you want to limit it to specific forms, you can configure per-form settings on each form's individual settings page.</p>
+</div>
+
+<div class="step-card" data-step="Step 5 of 5">
+  <h3>Test and Verify</h3>
+  <p>Submit any Gravity Form on your site — you can use the preview function from the Forms list in WordPress admin. Within a few seconds, you should receive a Telegram message with the form name, entry ID, submission timestamp, and all submitted field data.</p>
+  <p>If the message doesn't arrive, check <strong>Settings &rarr; JF Notify &rarr; Delivery Logs</strong> to see whether the API call succeeded and what response Telegram returned.</p>
+</div>
+
+<div class="callout callout--green">
+  <strong>Success looks like this</strong>
+  Your phone buzzes. The Telegram notification shows: form name, entry number, date/time, and all submitted fields formatted cleanly. You can read the entire submission without opening a laptop.
+</div>
+
+<h2>Troubleshooting Common Issues</h2>
+
+<h3>No message received after form submission</h3>
+<p>Check the Delivery Logs in plugin settings. If the log shows an error like "Unauthorized," your bot token is incorrect — re-copy it from BotFather exactly as shown. If it shows "Bad Request: chat not found," your chat ID is wrong or the bot hasn't been started. Send any message to the bot in Telegram, then retry the form submission.</p>
+
+<h3>getUpdates returns empty array</h3>
+<p>You need to initiate a conversation with the bot before it can receive your chat ID. Open the bot in Telegram and press Start, or send it any message. Then revisit the getUpdates URL.</p>
+
+<h3>Messages arriving for some forms but not others</h3>
+<p>Check the per-form settings — each Gravity Form in WordPress admin has an individual JF Notify configuration tab where you can enable or disable notifications on a per-form basis. Make sure the forms you want alerts from have notifications enabled.</p>
+
+<h3>Notification arrives but shows wrong field data</h3>
+<p>The message content reflects the field labels set in Gravity Forms. If your field labels are empty or generic (e.g., "Field 1"), update the field labels in the Gravity Forms form editor for cleaner notifications.</p>
+
+<h2>Receiving Notifications on Multiple Devices</h2>
+
+<p>Telegram push notifications are delivered to all logged-in devices simultaneously. If you use Telegram on your phone, tablet, and desktop, you'll receive the notification on all three the moment a form is submitted.</p>
+
+<p>You can also send notifications to a shared Telegram group — useful for teams where multiple people need to be aware of new leads or inquiries.</p>
+
+<h2>Next Steps</h2>
+
+<p>Once you've confirmed basic notifications are working, consider:</p>
+
+<ul>
+  <li>Setting up a dedicated Gravity Forms notification group in Telegram for team visibility</li>
+  <li>Keeping your existing Gravity Forms email notification active as an archive backup</li>
+  <li>Using Gravity Forms' conditional logic to create different forms that route to different Telegram chats</li>
+</ul>

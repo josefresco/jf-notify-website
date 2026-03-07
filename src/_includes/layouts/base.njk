@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | JF Notify</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="https://jfnotify.com{{ page.url }}">
+  <meta property="og:type" content="{{ ogType or 'article' }}">
+  <meta property="og:url" content="https://jfnotify.com{{ page.url }}">
+  <meta property="og:title" content="{{ ogTitle or title }}">
+  <meta property="og:description" content="{{ ogDescription or description }}">
+  <meta name="twitter:card" content="summary">
+  {% if schema %}
+  <script type="application/ld+json">{{ schema | safe }}</script>
+  {% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/blog.css">
+</head>
+<body>
+
+  {% include "partials/header.njk" %}
+
+  <main id="main-content">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+
+</body>
+</html>

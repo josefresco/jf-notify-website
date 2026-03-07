@@ -1,0 +1,41 @@
+---
+layout: base
+---
+
+<div class="article-header">
+  <div class="container">
+    <div class="article-tag">{{ tag }}</div>
+    <h1 class="article-title">{{ title }}</h1>
+    <p class="article-meta">Published {{ date | readableDate }} &mdash; {{ readTime }}</p>
+  </div>
+</div>
+
+<div class="article-body">
+  <div class="container">
+
+    {{ content | safe }}
+
+    <div class="cta-block">
+      <h2>{{ ctaTitle }}</h2>
+      <p>{{ ctaText }}</p>
+      <a href="https://jfnotify.com/#pricing" class="btn-primary">Get JF Notify — $29</a>
+    </div>
+
+  </div>
+</div>
+
+{% if related %}
+<div class="related">
+  <div class="related-inner">
+    <h3>Related Articles</h3>
+    <div class="related-grid">
+      {% for item in related %}
+      <a href="{{ item.url }}" class="related-card">
+        <span class="rc-tag">{{ item.tag }}</span>
+        <span class="rc-title">{{ item.title }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
