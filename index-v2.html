@@ -37,7 +37,7 @@
       --accent:      #C17F24;
       --accent-hover:#A36A18;
       --text:        #1A1A0F;
-      --muted:       #7A7A68;
+      --muted:       #636355;
       --success:     #2D7A3A;
       --problem:     #C0392B;
       --shadow-card: 0 2px 8px rgba(0,0,0,0.06);
@@ -176,6 +176,9 @@
       transition: background 0.2s;
     }
     .nav-cta:hover { background: var(--accent-hover); }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 0.2s; }
+    .nav-link:hover { color: var(--accent); }
 
     /* ── Hero ── */
     .hero {
@@ -812,17 +815,33 @@
       .price-top, .price-body { padding: 28px 24px; }
       .hero h1 { font-size: 2.2rem; }
     }
+    /* ── Skip Navigation ── */
+    .skip-nav { position: absolute; top: -100%; left: 16px; z-index: 9999; background: var(--accent); color: var(--surface); font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600; padding: 10px 20px; text-decoration: none; }
+    .skip-nav:focus { top: 8px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      html { scroll-behavior: auto; }
+    }
   </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://jfnotify.com/#website","url":"https://jfnotify.com/","name":"JF Notify","publisher":{"@id":"https://jfnotify.com/#organization"}},{"@type":"Organization","@id":"https://jfnotify.com/#organization","name":"JF Notify","url":"https://jfnotify.com/"},{"@type":"SoftwareApplication","name":"JF Notify — Gravity Forms Telegram Notifier","description":"WordPress plugin that sends instant Telegram push notifications when Gravity Forms submissions are received. Bypasses email spam filters. One-time $29 purchase, unlimited sites.","applicationCategory":"BusinessApplication","operatingSystem":"WordPress","url":"https://jfnotify.com/","offers":{"@type":"Offer","price":"29.00","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/7sY9ATeD40sn1Gg95P5os02"}}]}
+  </script>
 </head>
 <body>
 
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
   <!-- ── 1. HEADER ── -->
-  <header>
+  <header role="banner">
     <div class="container header-inner">
       <a href="#" class="logo">
         <span class="logo-jf">JF</span><span class="logo-name"> Notify</span>
       </a>
-      <a href="#pricing" class="nav-cta">Buy Now &mdash; $29</a>
+      <nav class="header-nav" aria-label="Site navigation">
+        <a href="/blog/" class="nav-link">Resources</a>
+        <a href="#pricing" class="nav-cta">Buy Now &mdash; $29</a>
+      </nav>
     </div>
   </header>
 
@@ -1146,12 +1165,12 @@
   </section>
 
   <!-- ── 10. FOOTER ── -->
-  <footer>
+  <footer role="contentinfo">
     <div class="container">
       <div class="footer-inner">
         <p>&copy; 2026 JF Notify. Created by <a href="https://github.com/josefresco">josefresco</a>.</p>
         <div style="display:flex;gap:20px;">
-          <a href="https://github.com/josefresco/gravity-forms-telegram-notifier/issues">Support &rarr;</a>
+          <a href="mailto:hello@jfnotify.com">hello@jfnotify.com</a>
           <a href="https://github.com/josefresco/gravity-forms-telegram-notifier/releases/latest/download/gravity-forms-telegram-notifier.zip">Download</a>
         </div>
       </div>

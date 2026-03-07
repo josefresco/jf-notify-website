@@ -49,7 +49,7 @@
       --red:         #F38BA8;
       --yellow:      #F9E2AF;
       --text:        #CDD6F4;
-      --muted:       #6C7086;
+      --muted:       #9B9DB8;
       --overlay0:    #6C7086;
       --subtext1:    #BAC2DE;
       --mauve-dim:   rgba(203, 166, 247, 0.10);
@@ -994,19 +994,35 @@
       }
     }
 
+    /* ── Skip Navigation ── */
+    .skip-nav { position: absolute; top: -100%; left: 16px; z-index: 9999; background: var(--mauve); color: var(--base); font-family: inherit; font-size: 0.82rem; font-weight: 600; padding: 10px 20px; text-decoration: none; }
+    .skip-nav:focus { top: 8px; }
+    :focus-visible { outline: 2px solid var(--mauve); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      html { scroll-behavior: auto; }
+    }
   </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://jfnotify.com/#website","url":"https://jfnotify.com/","name":"JF Notify","publisher":{"@id":"https://jfnotify.com/#organization"}},{"@type":"Organization","@id":"https://jfnotify.com/#organization","name":"JF Notify","url":"https://jfnotify.com/"},{"@type":"SoftwareApplication","name":"JF Notify — Gravity Forms Telegram Notifier","description":"WordPress plugin that sends instant Telegram push notifications when Gravity Forms submissions are received. Bypasses email spam filters. One-time $29 purchase, unlimited sites.","applicationCategory":"BusinessApplication","operatingSystem":"WordPress","url":"https://jfnotify.com/","offers":{"@type":"Offer","price":"29.00","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/7sY9ATeD40sn1Gg95P5os02"}}]}
+  </script>
 </head>
 <body>
+
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
 
   <!-- ═══════════════════════════════════════════
        HEADER
   ═══════════════════════════════════════════ -->
-  <header>
+  <header role="banner">
     <div class="header-inner">
       <a href="/" class="logo">
         <span class="logo-bracket">[</span>jf-notify<span class="logo-bracket">]</span>
       </a>
       <nav>
+        <a href="/blog/" class="nav-link">
+          <span class="nav-prompt">$</span> resources
+        </a>
         <a href="https://github.com/josefresco/gravity-forms-telegram-notifier" class="nav-link" target="_blank" rel="noopener">
           <span class="nav-prompt">$</span> docs
         </a>
@@ -1615,7 +1631,7 @@
   <!-- ═══════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════ -->
-  <footer>
+  <footer role="contentinfo">
     <div class="footer-inner">
       <div class="footer-block">
         <div class="footer-comment-line">
@@ -1679,8 +1695,8 @@
           <a href="https://github.com/josefresco/gravity-forms-telegram-notifier" target="_blank" rel="noopener">
             $ github
           </a>
-          <a href="mailto:support@jfnotify.com">
-            $ support
+          <a href="mailto:hello@jfnotify.com">
+            $ hello@jfnotify.com
           </a>
           <a href="https://buy.stripe.com/7sY9ATeD40sn1Gg95P5os02?ref=v4">
             $ purchase
