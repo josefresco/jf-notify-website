@@ -1,0 +1,57 @@
+# JF Notify
+
+> JF Notify is a WordPress plugin for Gravity Forms that delivers instant Telegram notifications when a form is submitted. It replaces unreliable WordPress email alerts with a direct call to the Telegram Bot API — no email infrastructure, no spam filters, no monthly fees.
+
+## About
+
+JF Notify solves a common problem: WordPress email notifications silently fail. Shared hosting blocks outgoing mail, spam filters bury notifications, and there is no delivery confirmation. JF Notify bypasses all of this by routing each Gravity Forms submission directly to a Telegram chat or group via the Telegram Bot API.
+
+**Price:** $29 one-time — no subscriptions, no recurring fees.
+**Works on:** Unlimited WordPress sites and forms.
+**Delivery speed:** Under 3 seconds.
+**Requirements:** WordPress, Gravity Forms, a free Telegram account.
+
+## Key Features
+
+- Instant Telegram message on every Gravity Forms submission
+- Bypasses email spam filters entirely
+- Delivery confirmation logs in WordPress admin
+- Supports any Telegram chat, group, or channel
+- No third-party relay services — direct Telegram Bot API call
+- Per-form granularity: notify on all forms or selected forms only
+- One-time purchase — lifetime updates included
+- Use on unlimited websites with one license
+
+## How It Works
+
+1. Create a free Telegram bot via @BotFather (takes ~2 minutes)
+2. Install and activate JF Notify on WordPress
+3. Enter your bot token and chat ID in the plugin settings
+4. Every Gravity Forms submission triggers an instant Telegram message
+
+## Common Use Cases
+
+- Freelancers and agencies who need to respond to leads immediately
+- Small businesses where missing a contact form means losing a sale
+- Site owners on shared hosting where wp_mail is unreliable
+- Teams who want form alerts in a Telegram group, not email inboxes
+- Anyone who has had Gravity Forms email go to spam
+
+## Why Telegram?
+
+Telegram is free to use, has a stable public Bot API, delivers messages in under a second globally, sends push notifications to iOS and Android automatically, and requires no paid plan or API key purchase. There is no per-message cost.
+
+## Resource Articles
+
+- Why WordPress Email Notifications Fail: https://jfnotify.com/blog/why-wordpress-email-notifications-fail.html
+- Telegram vs Email for Form Notifications: https://jfnotify.com/blog/telegram-vs-email-form-notifications.html
+- How to Get Push Notifications from Gravity Forms: https://jfnotify.com/blog/gravity-forms-telegram-push-notifications.html
+- Use Telegram as a Backup for WordPress Email: https://jfnotify.com/blog/telegram-backup-wordpress-email.html
+- Free Form Notifications — Skip the Monthly Fees: https://jfnotify.com/blog/free-form-notifications-telegram-wordpress.html
+
+## Links
+
+- Homepage: https://jfnotify.com/
+- Purchase: https://buy.stripe.com/7sY9ATeD40sn1Gg95P5os02
+- Plugin source: https://github.com/josefresco/gravity-forms-telegram-notifier
+- Support: https://github.com/josefresco/gravity-forms-telegram-notifier/issues

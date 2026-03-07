@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Get Instant Push Notifications from Gravity Forms Using Telegram | JF Notify</title>
+  <meta name="description" content="Step-by-step tutorial: set up instant Telegram push notifications for every Gravity Forms submission. Create your bot, install the plugin, and go live in under 10 minutes.">
+  <link rel="canonical" href="https://jfnotify.com/blog/gravity-forms-telegram-push-notifications.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://jfnotify.com/blog/gravity-forms-telegram-push-notifications.html">
+  <meta property="og:title" content="How to Get Instant Push Notifications from Gravity Forms Using Telegram">
+  <meta property="og:description" content="Step-by-step tutorial: set up instant Telegram push notifications for every Gravity Forms submission in under 10 minutes.">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Get Instant Push Notifications from Gravity Forms Using Telegram",
+    "description": "Connect Gravity Forms to Telegram so every form submission triggers an instant push notification to your phone.",
+    "totalTime": "PT10M",
+    "step": [
+      { "@type": "HowToStep", "name": "Create a Telegram Bot", "text": "Message @BotFather on Telegram, send /newbot, choose a name and username, and copy your API token." },
+      { "@type": "HowToStep", "name": "Get your Chat ID", "text": "Send a message to your new bot, then visit the getUpdates API endpoint to find your numeric chat ID." },
+      { "@type": "HowToStep", "name": "Install JF Notify", "text": "Purchase and download JF Notify, upload the plugin zip to WordPress, and activate it." },
+      { "@type": "HowToStep", "name": "Configure the plugin", "text": "Go to Settings > JF Notify, enter your bot token and chat ID, and save." },
+      { "@type": "HowToStep", "name": "Test with a form submission", "text": "Submit any Gravity Form on your site and confirm the Telegram message arrives within seconds." }
+    ],
+    "author": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" },
+    "publisher": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #07070D; --surface: #0C0C16; --surface-2: #131320; --border: #1C1C2E;
+      --accent: #00D9F5; --accent-dim: rgba(0,217,245,0.08); --green: #00F587;
+      --red: #FF3D3D; --text: #DDDDF0; --muted: #8585A8;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Mono', monospace; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(circle, rgba(28,28,46,0.8) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; z-index: 0; }
+    .container { max-width: 780px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .container--wide { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .skip-nav { position: absolute; top: -100%; left: 16px; z-index: 9999; background: var(--accent); color: var(--bg); font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600; padding: 10px 20px; text-decoration: none; }
+    .skip-nav:focus { top: 8px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(7,7,13,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .logo { font-family: 'Bebas Neue', cursive; font-size: 1.65rem; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; }
+    .logo span { color: var(--text); }
+    .nav-cta { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--bg); background: var(--accent); padding: 8px 20px; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); transition: background 0.2s; }
+    .nav-cta:hover { background: #fff; }
+    .article-header { padding: 72px 0 48px; border-bottom: 1px solid var(--border); }
+    .article-tag { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .article-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+    .article-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1; letter-spacing: 0.02em; margin-bottom: 20px; }
+    .article-meta { font-size: 0.75rem; color: var(--muted); }
+    .article-body { padding: 56px 0 80px; }
+    .article-body h2 { font-family: 'Bebas Neue', cursive; font-size: 1.9rem; letter-spacing: 0.03em; color: var(--text); margin: 52px 0 18px; }
+    .article-body h3 { font-family: 'Bebas Neue', cursive; font-size: 1.35rem; letter-spacing: 0.03em; color: var(--accent); margin: 32px 0 12px; }
+    .article-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.95; margin-bottom: 20px; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 0; padding: 0; list-style: none; }
+    .article-body li { font-size: 0.87rem; color: var(--muted); line-height: 1.85; padding: 8px 0 8px 24px; border-bottom: 1px solid var(--border); position: relative; }
+    .article-body li:last-child { border-bottom: none; }
+    .article-body ul li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+    .article-body ol { counter-reset: item; }
+    .article-body ol li { counter-increment: item; }
+    .article-body ol li::before { content: counter(item) '.'; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+    .article-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(0,217,245,0.3); }
+    .article-body a:hover { border-bottom-color: var(--accent); }
+    .callout { padding: 20px 24px; border-left: 2px solid var(--accent); background: var(--accent-dim); margin: 32px 0; font-size: 0.85rem; color: var(--text); line-height: 1.85; }
+    .callout strong { display: block; margin-bottom: 6px; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .callout--green { border-left-color: var(--green); background: rgba(0,245,135,0.06); }
+    .callout--green strong { color: var(--green); }
+
+    /* Step cards */
+    .step-card { background: var(--surface); border: 1px solid var(--border); padding: 28px 32px; margin: 28px 0; position: relative; }
+    .step-card::before { content: attr(data-step); position: absolute; top: -14px; left: 24px; background: var(--accent); color: var(--bg); font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 0.08em; padding: 2px 12px; }
+    .step-card h3 { font-family: 'Bebas Neue', cursive; font-size: 1.35rem; letter-spacing: 0.03em; color: var(--text); margin: 0 0 12px; }
+    .step-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.85; margin: 0 0 12px; }
+    .step-card p:last-child { margin-bottom: 0; }
+    .step-card code { font-family: 'IBM Plex Mono', monospace; background: var(--surface-2); border: 1px solid var(--border); padding: 2px 7px; font-size: 0.82rem; color: var(--accent); word-break: break-all; }
+
+    .cta-block { background: var(--surface); border: 1px solid var(--border); padding: 48px 40px; text-align: center; margin: 64px 0 0; }
+    .cta-block h2 { font-family: 'Bebas Neue', cursive; font-size: 2.2rem; margin-bottom: 12px; }
+    .cta-block p { font-size: 0.85rem; color: var(--muted); max-width: 440px; margin: 0 auto 28px; line-height: 1.85; }
+    .btn-primary { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; color: var(--bg); background: var(--accent); padding: 14px 32px; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transition: background 0.2s; }
+    .btn-primary:hover { background: #fff; }
+    .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .related { padding: 48px 0; border-top: 1px solid var(--border); }
+    .related h3 { font-family: 'Bebas Neue', cursive; font-size: 1.4rem; letter-spacing: 0.04em; margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); }
+    .related-card { background: var(--surface); padding: 24px; text-decoration: none; transition: background 0.2s; display: block; }
+    .related-card:hover { background: var(--surface-2); }
+    .related-card .rc-tag { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
+    .related-card .rc-title { font-size: 0.85rem; color: var(--text); line-height: 1.5; }
+    footer { padding: 28px 0; border-top: 1px solid var(--border); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    footer p, footer a { font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+    .footer-disclaimer { font-size: 0.7rem; color: var(--muted); opacity: 0.5; margin-top: 14px; text-align: center; }
+    @media (max-width: 640px) { .related-grid { grid-template-columns: 1fr; } .cta-block { padding: 32px 24px; } .footer-inner { flex-direction: column; text-align: center; } .step-card { padding: 20px 20px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <header role="banner">
+    <div class="container--wide header-inner">
+      <a href="https://jfnotify.com/" class="logo">JF<span>Notify</span></a>
+      <a href="https://jfnotify.com/#pricing" class="nav-cta">Get Plugin — $29</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <div class="article-header">
+      <div class="container">
+        <div class="article-tag">Tutorial</div>
+        <h1 class="article-title">How to Get Instant Push Notifications from Gravity Forms Using Telegram</h1>
+        <p class="article-meta">Published March 7, 2026 &mdash; 10 min read</p>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="container">
+
+        <p>Every time someone submits a Gravity Forms form on your WordPress site, you should know about it within seconds — not when you happen to check your email. This tutorial walks through the complete setup for getting real-time Telegram push notifications for every Gravity Forms submission, using the <a href="https://jfnotify.com/">JF Notify</a> plugin.</p>
+
+        <p>Total setup time: approximately 10 minutes. No coding required.</p>
+
+        <div class="callout">
+          <strong>What you need</strong>
+          A WordPress site with Gravity Forms installed, a Telegram account (free), and a copy of JF Notify. That's it — no SMTP service, no extra API accounts, no monthly subscriptions.
+        </div>
+
+        <h2>Why Telegram for Gravity Forms Notifications?</h2>
+
+        <p>Telegram's Bot API delivers messages via a direct HTTPS connection to Telegram's servers. When you submit a form, the plugin makes one API call — and your phone buzzes with a push notification before the submitter has finished reading the thank-you message.</p>
+
+        <p>Unlike email, Telegram messages don't go through spam filters. Unlike push notification services (OneSignal, Pusher, etc.), the Telegram API is completely free with no per-message cost and no usage limits relevant to form notifications.</p>
+
+        <h2>Step-by-Step Setup</h2>
+
+        <div class="step-card" data-step="Step 1 of 5">
+          <h3>Create Your Telegram Bot</h3>
+          <p>Open Telegram and search for <strong>@BotFather</strong> — this is Telegram's official bot creation tool. Start a conversation and send the command <code>/newbot</code>.</p>
+          <p>BotFather will ask for a display name (e.g., "My Site Notify") and a username (must end in "bot", e.g., "mysitenotify_bot"). Once confirmed, BotFather sends you an <strong>API token</strong> — a long string that looks like <code>7123456789:AAHfiqksK55Wy-pEMAsdfXNj7OsFbdZ0abc</code>.</p>
+          <p>Copy this token and keep it safe. You'll need it in step 4.</p>
+        </div>
+
+        <div class="step-card" data-step="Step 2 of 5">
+          <h3>Get Your Chat ID</h3>
+          <p>Your Chat ID tells the bot where to send messages — your personal account, a group, or a channel. To find it:</p>
+          <p><strong>For your personal account:</strong> Send any message to your new bot (just open it and type "hello"). Then open a browser and visit: <code>https://api.telegram.org/bot&lt;YOUR_TOKEN&gt;/getUpdates</code> (replace &lt;YOUR_TOKEN&gt; with your actual token). Look for the <code>"chat"</code> object in the JSON response — your numeric ID is the <code>"id"</code> field inside it.</p>
+          <p><strong>For a group:</strong> Add your bot to the group, send a message in the group, then visit the same getUpdates URL. The chat ID for groups is a negative number (e.g., <code>-1001234567890</code>).</p>
+          <p>If getUpdates returns an empty result array, make sure you sent a message to the bot or group after creating it.</p>
+        </div>
+
+        <div class="step-card" data-step="Step 3 of 5">
+          <h3>Purchase and Install JF Notify</h3>
+          <p>Go to <a href="https://jfnotify.com/#pricing">jfnotify.com</a> and purchase the plugin ($29 one-time). After checkout, you'll receive an email with the plugin download link.</p>
+          <p>In your WordPress admin, go to <strong>Plugins &rarr; Add New &rarr; Upload Plugin</strong>. Select the downloaded .zip file and click Install Now. Once installed, click Activate.</p>
+        </div>
+
+        <div class="step-card" data-step="Step 4 of 5">
+          <h3>Configure JF Notify</h3>
+          <p>In WordPress admin, go to <strong>Settings &rarr; JF Notify</strong>. You'll see two fields:</p>
+          <p><strong>Bot Token:</strong> Paste the API token you received from BotFather.</p>
+          <p><strong>Chat ID:</strong> Enter the numeric chat ID from step 2. Include the negative sign if it's a group.</p>
+          <p>Save the settings. By default, JF Notify will send a notification for every Gravity Forms submission on your site. If you want to limit it to specific forms, you can configure per-form settings on each form's individual settings page.</p>
+        </div>
+
+        <div class="step-card" data-step="Step 5 of 5">
+          <h3>Test and Verify</h3>
+          <p>Submit any Gravity Form on your site — you can use the preview function from the Forms list in WordPress admin. Within a few seconds, you should receive a Telegram message with the form name, entry ID, submission timestamp, and all submitted field data.</p>
+          <p>If the message doesn't arrive, check <strong>Settings &rarr; JF Notify &rarr; Delivery Logs</strong> to see whether the API call succeeded and what response Telegram returned.</p>
+        </div>
+
+        <div class="callout callout--green">
+          <strong>Success looks like this</strong>
+          Your phone buzzes. The Telegram notification shows: form name, entry number, date/time, and all submitted fields formatted cleanly. You can read the entire submission without opening a laptop.
+        </div>
+
+        <h2>Troubleshooting Common Issues</h2>
+
+        <h3>No message received after form submission</h3>
+        <p>Check the Delivery Logs in plugin settings. If the log shows an error like "Unauthorized," your bot token is incorrect — re-copy it from BotFather exactly as shown. If it shows "Bad Request: chat not found," your chat ID is wrong or the bot hasn't been started. Send any message to the bot in Telegram, then retry the form submission.</p>
+
+        <h3>getUpdates returns empty array</h3>
+        <p>You need to initiate a conversation with the bot before it can receive your chat ID. Open the bot in Telegram and press Start, or send it any message. Then revisit the getUpdates URL.</p>
+
+        <h3>Messages arriving for some forms but not others</h3>
+        <p>Check the per-form settings — each Gravity Form in WordPress admin has an individual JF Notify configuration tab where you can enable or disable notifications on a per-form basis. Make sure the forms you want alerts from have notifications enabled.</p>
+
+        <h3>Notification arrives but shows wrong field data</h3>
+        <p>The message content reflects the field labels set in Gravity Forms. If your field labels are empty or generic (e.g., "Field 1"), update the field labels in the Gravity Forms form editor for cleaner notifications.</p>
+
+        <h2>Receiving Notifications on Multiple Devices</h2>
+
+        <p>Telegram push notifications are delivered to all logged-in devices simultaneously. If you use Telegram on your phone, tablet, and desktop, you'll receive the notification on all three the moment a form is submitted.</p>
+
+        <p>You can also send notifications to a shared Telegram group — useful for teams where multiple people need to be aware of new leads or inquiries.</p>
+
+        <h2>Next Steps</h2>
+
+        <p>Once you've confirmed basic notifications are working, consider:</p>
+
+        <ul>
+          <li>Setting up a dedicated Gravity Forms notification group in Telegram for team visibility</li>
+          <li>Keeping your existing Gravity Forms email notification active as an archive backup</li>
+          <li>Using Gravity Forms' conditional logic to create different forms that route to different Telegram chats</li>
+        </ul>
+
+        <div class="cta-block">
+          <h2>Ready to Set It Up?</h2>
+          <p>Get JF Notify for $29 one-time. Works on unlimited WordPress sites. Telegram delivery confirmed in under 10 minutes.</p>
+          <a href="https://jfnotify.com/#pricing" class="btn-primary">Buy JF Notify — $29</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="related">
+      <div class="container">
+        <h3>Related Articles</h3>
+        <div class="related-grid">
+          <a href="https://jfnotify.com/blog/telegram-backup-wordpress-email.html" class="related-card">
+            <span class="rc-tag">Strategy</span>
+            <span class="rc-title">Use Telegram as a Failsafe Backup for Your WordPress Form Emails</span>
+          </a>
+          <a href="https://jfnotify.com/blog/telegram-vs-email-form-notifications.html" class="related-card">
+            <span class="rc-tag">Comparison</span>
+            <span class="rc-title">Telegram vs Email for WordPress Form Notifications: A Complete Comparison</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container--wide">
+      <div class="footer-inner">
+        <p>&copy; 2026 JF Notify. Created by <a href="https://github.com/josefresco">josefresco</a></p>
+        <p><a href="https://github.com/josefresco/gravity-forms-telegram-notifier/issues">Support &rarr;</a></p>
+      </div>
+      <p class="footer-disclaimer">This plugin is not affiliated with, endorsed by, or associated with Gravity Forms, Telegram, or WordPress.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

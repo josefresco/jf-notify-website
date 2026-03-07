@@ -14,6 +14,102 @@
   <meta name="twitter:card"        content="summary">
   <meta name="twitter:title"       content="JF Notify — Instant Telegram Alerts for Gravity Forms">
   <meta name="twitter:description" content="Stop missing leads. Get Gravity Forms submissions delivered instantly to your Telegram. One-time $29. No monthly fees.">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://jfnotify.com/#website",
+        "url": "https://jfnotify.com/",
+        "name": "JF Notify",
+        "description": "Instant Telegram notifications for Gravity Forms — WordPress plugin",
+        "publisher": { "@id": "https://jfnotify.com/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://jfnotify.com/#organization",
+        "name": "JF Notify",
+        "url": "https://jfnotify.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://jfnotify.com/gf-logo.png"
+        },
+        "sameAs": ["https://github.com/josefresco/gravity-forms-telegram-notifier"]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://jfnotify.com/#product",
+        "name": "JF Notify — Gravity Forms Telegram Notifier",
+        "description": "A WordPress plugin that sends instant Telegram push notifications when Gravity Forms submissions are received. Bypasses email spam filters with a direct Telegram Bot API call. Works on unlimited sites. One-time purchase.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "WordPress 5.0+",
+        "url": "https://jfnotify.com/",
+        "screenshot": {
+          "@type": "ImageObject",
+          "url": "https://jfnotify.com/gravity-forms-telegram-notifier-settings.png",
+          "caption": "JF Notify plugin settings panel in WordPress admin"
+        },
+        "featureList": [
+          "Instant Telegram notifications on Gravity Forms submission",
+          "Bypasses email spam filters",
+          "Push notifications to iOS and Android",
+          "Delivery confirmation logs",
+          "Unlimited sites and forms",
+          "No monthly fees",
+          "Lifetime updates"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "29.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://buy.stripe.com/7sY9ATeD40sn1Gg95P5os02",
+          "seller": { "@id": "https://jfnotify.com/#organization" }
+        },
+        "publisher": { "@id": "https://jfnotify.com/#organization" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why do WordPress email notifications fail?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "WordPress uses the wp_mail() function which relies on the server's sendmail. Shared hosting servers often have poor IP reputation, and outgoing emails are frequently caught by spam filters or blocked entirely. There is no delivery confirmation built in."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does JF Notify replace email notifications?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "JF Notify works alongside or instead of Gravity Forms email notifications. You can use both simultaneously — Telegram for instant reliable alerts, email as a secondary record."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Telegram free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The Telegram Bot API is completely free with no per-message fees. You only pay once for the JF Notify plugin ($29 one-time)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many sites can I use JF Notify on?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Unlimited. One purchase covers all your WordPress sites and all your Gravity Forms — no per-site licensing."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2307070D'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='14' fill='%2300D9F5'>JF</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +131,7 @@
       --green:       #00F587;
       --red:         #FF3D3D;
       --text:        #DDDDF0;
-      --muted:       #5C5C80;
+      --muted:       #8585A8; /* was #5C5C80 — lifted to 6.2:1 contrast on --bg for WCAG AA */
     }
 
     html { scroll-behavior: smooth; }
@@ -641,6 +737,47 @@
     footer a:hover { color: var(--accent); }
     .footer-disclaimer { font-size: 0.7rem; color: var(--muted); opacity: 0.5; margin-top: 14px; text-align: center; }
 
+    /* ── Skip Navigation (WCAG 2.4.1) ── */
+    .skip-nav {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      z-index: 9999;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+    .skip-nav:focus { top: 8px; }
+
+    /* ── Focus Visible (WCAG 2.4.7) ── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .btn-primary:focus-visible,
+    .btn-ghost:focus-visible,
+    .nav-cta:focus-visible,
+    .price-cta:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* ── Reduced Motion (WCAG 2.3.3) ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+      .fade-up { opacity: 1; animation: none; }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .problem-grid { grid-template-columns: 1fr; }
@@ -659,8 +796,10 @@
 </head>
 <body>
 
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
   <!-- ── Header ── -->
-  <header>
+  <header role="banner">
     <div class="container header-inner">
       <a href="#" class="logo">JF<span>Notify</span></a>
       <a href="#pricing" class="nav-cta">Get Plugin</a>
@@ -668,10 +807,11 @@
   </header>
 
   <!-- ── Hero ── -->
-  <section class="hero">
+  <main id="main-content">
+  <section class="hero" aria-label="Hero">
     <div class="container">
       <div class="hero-badge fade-up">
-        <span class="live-dot"></span>
+        <span class="live-dot" aria-hidden="true"></span>
         WordPress Plugin &mdash; Gravity Forms
       </div>
       <h1 class="fade-up">
@@ -691,7 +831,7 @@
   </section>
 
   <!-- ── Stats ── -->
-  <div class="stat-bar">
+  <div class="stat-bar" role="region" aria-label="Key statistics">
     <div class="container">
       <div class="stat-inner">
         <div class="stat-item">
@@ -715,10 +855,10 @@
   </div>
 
   <!-- ── Problem / Solution ── -->
-  <section class="problem-section">
+  <section class="problem-section" aria-labelledby="problem-heading">
     <div class="container">
       <div class="section-label">The Problem</div>
-      <h2 class="section-title">Why Emails Fail You</h2>
+      <h2 class="section-title" id="problem-heading">Why Emails Fail You</h2>
       <p class="section-sub">Thousands of leads are lost every day to silent email failures. Here&rsquo;s what&rsquo;s happening to yours right now.</p>
       <div class="problem-grid">
         <div class="problem-col">
@@ -748,40 +888,40 @@
   </section>
 
   <!-- ── Features ── -->
-  <section class="features-section" id="features">
+  <section class="features-section" id="features" aria-labelledby="features-heading">
     <div class="container">
       <div class="features-header">
         <div class="section-label">Features</div>
-        <h2 class="section-title">Built for Small Business Owners</h2>
+        <h2 class="section-title" id="features-heading">Built for Small Business Owners</h2>
       </div>
       <div class="features-grid">
         <div class="feature-card">
-          <span class="feature-glyph">&#9889;</span>
+          <span class="feature-glyph" aria-hidden="true">&#9889;</span>
           <h3>Instant Delivery</h3>
           <p>Notifications arrive in seconds. Respond to inquiries before your competitors even know they exist.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-glyph">&#128176;</span>
+          <span class="feature-glyph" aria-hidden="true">&#128176;</span>
           <h3>Never Miss a Sale</h3>
           <p>Every form submission is potential revenue. Get alerted immediately so leads don&rsquo;t go cold.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-glyph">&#9745;</span>
+          <span class="feature-glyph" aria-hidden="true">&#9745;</span>
           <h3>Choose Your Forms</h3>
           <p>Only get notified about what matters. High-value contacts, quotes, or all forms &mdash; your call.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-glyph">&#128202;</span>
+          <span class="feature-glyph" aria-hidden="true">&#128202;</span>
           <h3>Delivery Confirmation</h3>
           <p>Activity logs show exactly what was sent and when. Unlike email, you&rsquo;ll always know it arrived.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-glyph">&#128274;</span>
+          <span class="feature-glyph" aria-hidden="true">&#128274;</span>
           <h3>No Third-Party Services</h3>
           <p>No monthly fees for email delivery. Direct Telegram API &mdash; no middleman, no extra costs.</p>
         </div>
         <div class="feature-card">
-          <span class="feature-glyph">&#128241;</span>
+          <span class="feature-glyph" aria-hidden="true">&#128241;</span>
           <h3>Always With You</h3>
           <p>On-site with a client? At your kid&rsquo;s game? Notifications reach your phone wherever you are.</p>
         </div>
@@ -900,12 +1040,14 @@
     </div>
   </section>
 
+  </main><!-- /#main-content -->
+
   <!-- ── Footer ── -->
-  <footer>
+  <footer role="contentinfo">
     <div class="container">
       <div class="footer-inner">
         <p>&copy; 2026 JF Notify. Created by <a href="https://github.com/josefresco">josefresco</a></p>
-        <p><a href="https://github.com/josefresco/gravity-forms-telegram-notifier/issues">Support &rarr;</a></p>
+        <p><a href="/blog/">Resources &rarr;</a> &nbsp; <a href="https://github.com/josefresco/gravity-forms-telegram-notifier/issues">Support &rarr;</a></p>
       </div>
       <p class="footer-disclaimer">This plugin is not affiliated with, endorsed by, or associated with Gravity Forms, Telegram, or WordPress.</p>
     </div>
