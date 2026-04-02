@@ -1,5 +1,5 @@
 const DOWNLOAD_URL =
-  'https://github.com/josefresco/gravity-forms-telegram-notifier/releases/latest/download/gravity-forms-telegram-notifier.zip';
+  'https://github.com/josefresco/jf-notify/releases/latest/download/jf-notify.zip';
 
 // Only handle POST requests
 export async function onRequestPost(context) {
