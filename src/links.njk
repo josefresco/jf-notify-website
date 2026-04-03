@@ -1,0 +1,197 @@
+---
+layout: base
+title: Useful Links
+description: Links to the core tools JF Notify connects — Gravity Forms, WordPress, and Telegram — plus helpful resources on email delivery, form notifications, and Telegram bot setup.
+ogType: website
+ogTitle: "Useful Links | JF Notify"
+ogDescription: Core project links and helpful resources on WordPress email delivery, Gravity Forms, and Telegram bot setup.
+permalink: /links/
+---
+
+<style>
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-top: 40px;
+  }
+  .link-card {
+    background: var(--surface);
+    padding: 32px 28px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.2s;
+  }
+  .link-card:hover { background: var(--surface-2); }
+  .link-card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+  .link-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .link-card-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.85;
+    flex: 1;
+  }
+  .link-card-url {
+    font-size: 0.72rem;
+    color: var(--accent-text);
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+
+  .resource-list {
+    margin-top: 32px;
+    border: 1px solid var(--border);
+  }
+  .resource-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .resource-item:last-child { border-bottom: none; }
+  .resource-item:hover { background: var(--surface-2); }
+  .resource-item-left { display: flex; flex-direction: column; gap: 4px; }
+  .resource-item-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+  .resource-item-title {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .resource-item-arrow {
+    font-size: 0.78rem;
+    color: var(--accent-text);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 720px) {
+    .links-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .resource-item { flex-direction: column; gap: 8px; }
+  }
+</style>
+
+<div class="page-header">
+  <div class="container--wide">
+    <div class="section-label">Links</div>
+    <h1 class="page-title">Useful Links</h1>
+    <p class="page-sub">The core tools JF Notify connects, plus helpful documentation and resources.</p>
+  </div>
+</div>
+
+<div class="articles-section">
+  <div class="container--wide">
+
+    <!-- Core Projects -->
+    <div class="section-label">Core Projects</div>
+    <div class="links-grid">
+
+      <a href="https://www.gravityforms.com/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-label">WordPress Plugin</span>
+        <div class="link-card-title">Gravity Forms</div>
+        <p class="link-card-desc">The leading form builder for WordPress. JF Notify hooks directly into Gravity Forms to deliver submission alerts via Telegram.</p>
+        <span class="link-card-url">gravityforms.com &rarr;</span>
+      </a>
+
+      <a href="https://wordpress.org/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-label">CMS Platform</span>
+        <div class="link-card-title">WordPress</div>
+        <p class="link-card-desc">The open-source CMS powering over 40% of the web. JF Notify is a native WordPress plugin — no third-party services required.</p>
+        <span class="link-card-url">wordpress.org &rarr;</span>
+      </a>
+
+      <a href="https://telegram.org/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-label">Messaging App</span>
+        <div class="link-card-title">Telegram</div>
+        <p class="link-card-desc">Fast, free, and reliable messaging with instant push notifications. JF Notify delivers form submissions directly to any Telegram chat or group.</p>
+        <span class="link-card-url">telegram.org &rarr;</span>
+      </a>
+
+    </div>
+
+    <!-- Help Resources -->
+    <div class="section-label" style="margin-top: 64px;">Help &amp; Documentation</div>
+    <div class="resource-list">
+
+      <a href="https://core.telegram.org/bots" class="resource-item" target="_blank" rel="noopener">
+        <div class="resource-item-left">
+          <span class="resource-item-tag">Telegram</span>
+          <span class="resource-item-title">Telegram Bot API — Official Documentation</span>
+        </div>
+        <span class="resource-item-arrow">&rarr;</span>
+      </a>
+
+      <a href="https://docs.gravityforms.com/" class="resource-item" target="_blank" rel="noopener">
+        <div class="resource-item-left">
+          <span class="resource-item-tag">Gravity Forms</span>
+          <span class="resource-item-title">Gravity Forms Developer Documentation</span>
+        </div>
+        <span class="resource-item-arrow">&rarr;</span>
+      </a>
+
+      <a href="https://developer.wordpress.org/plugins/hooks/" class="resource-item" target="_blank" rel="noopener">
+        <div class="resource-item-left">
+          <span class="resource-item-tag">WordPress</span>
+          <span class="resource-item-title">WordPress Plugin Hooks — Actions &amp; Filters</span>
+        </div>
+        <span class="resource-item-arrow">&rarr;</span>
+      </a>
+
+      <a href="https://wordpress.org/plugins/wp-mail-smtp/" class="resource-item" target="_blank" rel="noopener">
+        <div class="resource-item-left">
+          <span class="resource-item-tag">Email Delivery</span>
+          <span class="resource-item-title">WP Mail SMTP — Fix WordPress Email Deliverability</span>
+        </div>
+        <span class="resource-item-arrow">&rarr;</span>
+      </a>
+
+      <a href="https://postmarkapp.com/blog/why-emails-go-to-spam" class="resource-item" target="_blank" rel="noopener">
+        <div class="resource-item-left">
+          <span class="resource-item-tag">Email Delivery</span>
+          <span class="resource-item-title">Why Emails Go to Spam — Postmark</span>
+        </div>
+        <span class="resource-item-arrow">&rarr;</span>
+      </a>
+
+      <a href="https://www.mailgun.com/blog/email/email-deliverability-101/" class="resource-item" target="_blank" rel="noopener">
+        <div class="resource-item-left">
+          <span class="resource-item-tag">Email Delivery</span>
+          <span class="resource-item-title">Email Deliverability 101 — Mailgun</span>
+        </div>
+        <span class="resource-item-arrow">&rarr;</span>
+      </a>
+
+      <a href="https://developers.cloudflare.com/pages/" class="resource-item" target="_blank" rel="noopener">
+        <div class="resource-item-left">
+          <span class="resource-item-tag">Hosting</span>
+          <span class="resource-item-title">Cloudflare Pages — Documentation</span>
+        </div>
+        <span class="resource-item-arrow">&rarr;</span>
+      </a>
+
+    </div>
+
+  </div>
+</div>
