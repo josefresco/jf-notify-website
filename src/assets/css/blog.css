@@ -8,46 +8,37 @@ html { scroll-behavior: smooth; }
 
 /* ── Design Tokens ───────────────────────────────────────────────────────── */
 :root {
-  /* Light article surface */
-  --bg:          #FFFFFF;
-  --surface:     #F8FAFC;
-  --surface-2:   #F1F5F9;
-  --border:      #E2E8F0;
-  --text:        #111827;
-  --text-muted:  #6B7280;
+  --bg:          #FAFAF5;
+  --surface:     #FFFFFF;
+  --surface-2:   #F4F4EE;
+  --border:      #E8E8DC;
+  --text:        #1A1A0F;
+  --text-muted:  #636355;
 
-  /* Brand accent — accessible on light bg */
-  --accent:      #00D9F5;   /* decorative only on light bg */
-  --accent-text: #0E7490;   /* 4.93:1 on white — tags, labels */
-  --accent-link: #0369A1;   /* 5.44:1 on white — body links */
+  --accent:      #C17F24;
+  --accent-hover:#A36A18;
+  --accent-text: #8A5A1A;
+  --accent-link: #7A4F10;
 
-  /* Semantic colors (light bg) */
-  --green:       #059669;
-  --green-bg:    #ECFDF5;
-  --red:         #DC2626;
+  --green:       #2D7A3A;
+  --green-bg:    #F0FDF4;
+  --red:         #C0392B;
   --red-bg:      #FEF2F2;
-
-  /* Brand dark — header / footer */
-  --brand-bg:      #07070D;
-  --brand-surface: #0C0C16;
-  --brand-border:  #1C1C2E;
-  --brand-text:    #DDDDF0;
-  --brand-muted:   #8585A8;
 }
 
 /* ── Skip nav ────────────────────────────────────────────────────────────── */
 .skip-nav {
   position: absolute; top: -100%; left: 16px; z-index: 9999;
-  background: var(--accent); color: var(--brand-bg);
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600;
+  background: var(--accent); color: var(--bg);
+  font-family: 'DM Mono', monospace; font-size: 0.82rem; font-weight: 500;
   padding: 10px 20px; text-decoration: none;
 }
 .skip-nav:focus { top: 8px; }
-:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* ── Layout ──────────────────────────────────────────────────────────────── */
 body {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'DM Mono', monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -56,40 +47,42 @@ body {
 .container       { max-width: 780px;  margin: 0 auto; padding: 0 24px; }
 .container--wide { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-/* ── Site Header (dark branded) ──────────────────────────────────────────── */
+/* ── Site Header ─────────────────────────────────────────────────────────── */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(7,7,13,0.92);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--brand-border);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 .header-inner {
   display: flex; align-items: center; justify-content: space-between;
-  height: 56px;
+  height: 60px;
 }
 .logo {
-  font-family: 'Bebas Neue', cursive; font-size: 1.65rem;
-  letter-spacing: 0.06em; color: var(--accent); text-decoration: none;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
 }
-.logo span { color: var(--brand-text); }
+.logo-jf  { color: var(--accent); }
+.logo-name { color: var(--text); }
 .header-nav { display: flex; align-items: center; gap: 24px; }
 .nav-link {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
+  font-family: 'DM Mono', monospace; font-size: 0.78rem;
   font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; color: var(--brand-muted); transition: color 0.2s;
+  text-decoration: none; color: var(--text-muted); transition: color 0.2s;
 }
 .nav-link:hover, .nav-link--active { color: var(--accent); }
 .nav-cta {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
-  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-  text-decoration: none; color: var(--brand-bg); background: var(--accent);
-  padding: 8px 20px;
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  font-family: 'DM Mono', monospace; font-size: 0.78rem;
+  font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; color: var(--text); background: var(--accent);
+  padding: 8px 20px; border-radius: 4px;
   transition: background 0.2s;
 }
-.nav-cta:hover { background: #fff; }
+.nav-cta:hover { background: var(--accent-hover); }
 
-/* ── Article Header Band (light gray) ────────────────────────────────────── */
+/* ── Article Header Band ─────────────────────────────────────────────────── */
 .article-header {
   padding: 64px 0 48px;
   background: var(--surface);
@@ -102,23 +95,23 @@ body {
 }
 .article-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
 .article-title {
-  font-family: 'Bebas Neue', cursive;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  line-height: 1.05; letter-spacing: 0.02em;
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.1; letter-spacing: -0.01em;
   color: var(--text); margin-bottom: 16px;
 }
 .article-meta { font-size: 0.75rem; color: var(--text-muted); }
 
-/* ── Article Body (white) ────────────────────────────────────────────────── */
+/* ── Article Body ────────────────────────────────────────────────────────── */
 .article-body { padding: 56px 0 80px; }
 
 .article-body h2 {
-  font-family: 'Bebas Neue', cursive; font-size: 1.8rem;
-  letter-spacing: 0.03em; color: var(--text); margin: 48px 0 16px;
+  font-family: 'DM Serif Display', serif; font-size: 1.8rem;
+  letter-spacing: -0.01em; color: var(--text); margin: 48px 0 16px;
 }
 .article-body h3 {
-  font-family: 'Bebas Neue', cursive; font-size: 1.25rem;
-  letter-spacing: 0.03em; color: var(--accent-text); margin: 28px 0 10px;
+  font-family: 'DM Serif Display', serif; font-size: 1.25rem;
+  letter-spacing: -0.01em; color: var(--accent-text); margin: 28px 0 10px;
 }
 .article-body p {
   font-size: 0.88rem; color: var(--text-muted); line-height: 1.95; margin-bottom: 20px;
@@ -140,11 +133,11 @@ body {
 }
 .article-body a {
   color: var(--accent-link); text-decoration: none;
-  border-bottom: 1px solid rgba(3,105,161,0.3);
+  border-bottom: 1px solid rgba(122,79,16,0.3);
 }
 .article-body a:hover { border-bottom-color: var(--accent-link); }
 .article-body code {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'DM Mono', monospace;
   background: var(--surface-2); border: 1px solid var(--border);
   padding: 2px 7px; font-size: 0.82rem; color: var(--accent-text); word-break: break-all;
 }
@@ -152,7 +145,7 @@ body {
 /* ── Callout Boxes ───────────────────────────────────────────────────────── */
 .callout {
   padding: 20px 24px; border-left: 3px solid var(--accent);
-  background: #F0FDFF; margin: 32px 0;
+  background: #FFF8F0; margin: 32px 0;
   font-size: 0.85rem; color: var(--text); line-height: 1.85;
 }
 .callout strong {
@@ -174,7 +167,7 @@ body {
   padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: left;
 }
 .comparison-table th, .cost-table th {
-  background: var(--surface); color: var(--accent-text);
+  background: var(--surface-2); color: var(--accent-text);
   font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.72rem;
 }
 .comparison-table td, .cost-table td { color: var(--text-muted); }
@@ -197,13 +190,13 @@ body {
 }
 .step-card::before {
   content: attr(data-step); position: absolute; top: -14px; left: 24px;
-  background: var(--accent); color: var(--brand-bg);
-  font-family: 'Bebas Neue', cursive; font-size: 0.9rem; letter-spacing: 0.08em;
+  background: var(--accent); color: var(--bg);
+  font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
   padding: 2px 12px;
 }
 .step-card h3 {
-  font-family: 'Bebas Neue', cursive; font-size: 1.25rem;
-  letter-spacing: 0.03em; color: var(--text); margin: 0 0 12px;
+  font-family: 'DM Serif Display', serif; font-size: 1.2rem;
+  color: var(--text); margin: 0 0 12px;
 }
 .step-card p {
   font-size: 0.85rem; color: var(--text-muted); line-height: 1.85;
@@ -214,7 +207,7 @@ body {
   background: var(--surface-2); border: 1px solid var(--border);
   padding: 2px 7px; font-size: 0.82rem; color: var(--accent-text); word-break: break-all;
 }
-.step-card a { color: var(--accent-link); border-bottom: 1px solid rgba(3,105,161,0.3); }
+.step-card a { color: var(--accent-link); border-bottom: 1px solid rgba(122,79,16,0.3); }
 .step-card a:hover { border-bottom-color: var(--accent-link); }
 
 /* ── Scenario Cards ──────────────────────────────────────────────────────── */
@@ -230,7 +223,7 @@ body {
 .scenario .scenario-label { color: var(--red); }
 .scenario.resolved .scenario-label { color: var(--green); }
 .scenario h3 {
-  font-family: 'Bebas Neue', cursive; font-size: 1.15rem;
+  font-family: 'DM Serif Display', serif; font-size: 1.15rem;
   color: var(--text); margin-bottom: 10px;
 }
 .scenario p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.85; margin: 0; }
@@ -241,49 +234,49 @@ body {
   padding: 32px; margin: 40px 0; text-align: center;
 }
 .highlight-box .big-number {
-  font-family: 'Bebas Neue', cursive; font-size: 4rem;
-  color: var(--green); letter-spacing: 0.02em; line-height: 1; display: block;
+  font-family: 'DM Serif Display', serif; font-size: 4rem;
+  color: var(--green); letter-spacing: -0.02em; line-height: 1; display: block;
 }
 .highlight-box .big-label {
   font-size: 0.78rem; color: var(--text-muted);
   letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px;
 }
 
-/* ── CTA Block (dark branded) ────────────────────────────────────────────── */
+/* ── CTA Block ───────────────────────────────────────────────────────────── */
 .cta-block {
-  background: var(--brand-surface); border: 1px solid var(--brand-border);
+  background: var(--surface-2); border: 1px solid var(--border);
   padding: 48px 40px; text-align: center; margin: 64px 0 0;
 }
 .cta-block h2 {
-  font-family: 'Bebas Neue', cursive; font-size: 2.2rem;
-  color: var(--brand-text); margin-bottom: 12px;
+  font-family: 'DM Serif Display', serif; font-size: 2.2rem;
+  color: var(--text); margin-bottom: 12px;
 }
 .cta-block p {
-  font-size: 0.85rem; color: var(--brand-muted);
+  font-size: 0.85rem; color: var(--text-muted);
   max-width: 440px; margin: 0 auto 28px; line-height: 1.85;
 }
 .btn-primary {
   display: inline-block;
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem;
-  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-  text-decoration: none; border: none; color: var(--brand-bg);
+  font-family: 'DM Mono', monospace; font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; border: none; color: var(--text);
   background: var(--accent); padding: 14px 32px;
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-  transition: background 0.2s;
+  border-radius: 4px;
+  transition: background 0.2s, transform 0.15s;
 }
-.btn-primary:hover { background: #fff; }
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 /* ── Related Articles ────────────────────────────────────────────────────── */
 .related {
   padding: 48px 0;
-  background: var(--surface);
+  background: var(--surface-2);
   border-top: 1px solid var(--border);
 }
 .related-inner { max-width: 780px; margin: 0 auto; padding: 0 24px; }
 .related h3 {
-  font-family: 'Bebas Neue', cursive; font-size: 1.4rem;
-  letter-spacing: 0.04em; color: var(--text); margin-bottom: 20px;
+  font-family: 'DM Serif Display', serif; font-size: 1.4rem;
+  color: var(--text); margin-bottom: 20px;
 }
 .related-grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
@@ -293,30 +286,30 @@ body {
   background: var(--bg); padding: 24px; text-decoration: none;
   transition: background 0.2s; display: block;
 }
-.related-card:hover { background: var(--surface-2); }
+.related-card:hover { background: var(--surface); }
 .related-card .rc-tag {
   font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--accent-text); margin-bottom: 8px; display: block;
 }
 .related-card .rc-title { font-size: 0.85rem; color: var(--text); line-height: 1.5; }
 
-/* ── Site Footer (dark branded) ──────────────────────────────────────────── */
+/* ── Site Footer ─────────────────────────────────────────────────────────── */
 .site-footer {
-  padding: 28px 0;
-  background: var(--brand-bg);
-  border-top: 1px solid var(--brand-border);
+  padding: 32px 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
 }
 .footer-inner {
   display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap; gap: 10px;
+  align-items: center; flex-wrap: wrap; gap: 12px;
 }
 .site-footer p, .site-footer a {
-  font-size: 0.78rem; color: var(--brand-muted); text-decoration: none;
+  font-size: 0.78rem; color: var(--text-muted); text-decoration: none;
 }
 .site-footer a:hover { color: var(--accent); }
 .footer-disclaimer {
-  font-size: 0.7rem; color: var(--brand-muted);
-  opacity: 0.5; margin-top: 14px; text-align: center;
+  font-size: 0.7rem; color: var(--text-muted);
+  opacity: 0.6; margin-top: 16px; text-align: center; line-height: 1.6;
 }
 
 /* ── Blog Index Page ─────────────────────────────────────────────────────── */
@@ -332,9 +325,9 @@ body {
 }
 .section-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
 .page-title {
-  font-family: 'Bebas Neue', cursive;
-  font-size: clamp(2.8rem, 6vw, 5rem);
-  line-height: 1; letter-spacing: 0.02em; color: var(--text); margin-bottom: 16px;
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  line-height: 1; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px;
 }
 .page-sub { font-size: 0.88rem; color: var(--text-muted); max-width: 480px; line-height: 1.9; }
 
@@ -353,8 +346,8 @@ body {
   color: var(--accent-text); margin-bottom: 16px; display: block;
 }
 .card-title {
-  font-family: 'Bebas Neue', cursive; font-size: 1.6rem;
-  letter-spacing: 0.02em; line-height: 1.1; color: var(--text); margin-bottom: 14px;
+  font-family: 'DM Serif Display', serif; font-size: 1.5rem;
+  letter-spacing: -0.01em; line-height: 1.15; color: var(--text); margin-bottom: 14px;
 }
 .card-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.85; flex: 1; }
 .card-read {
@@ -363,9 +356,9 @@ body {
 }
 
 .cta-strip {
-  background: var(--brand-surface);
-  border-top: 1px solid var(--brand-border);
-  border-bottom: 1px solid var(--brand-border);
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   padding: 48px 0; margin-top: 40px;
 }
 .cta-strip-inner {
@@ -373,10 +366,10 @@ body {
   gap: 24px; flex-wrap: wrap;
 }
 .cta-strip h2 {
-  font-family: 'Bebas Neue', cursive; font-size: 2rem;
-  letter-spacing: 0.02em; color: var(--brand-text);
+  font-family: 'DM Serif Display', serif; font-size: 2rem;
+  letter-spacing: -0.01em; color: var(--text);
 }
-.cta-strip p { font-size: 0.82rem; color: var(--brand-muted); max-width: 380px; line-height: 1.85; }
+.cta-strip p { font-size: 0.82rem; color: var(--text-muted); max-width: 380px; line-height: 1.85; }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 720px) {
