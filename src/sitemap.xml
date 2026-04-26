@@ -3,14 +3,14 @@
 
   <url>
     <loc>https://jfnotify.com/</loc>
-    <lastmod>2026-03-07</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://jfnotify.com/blog/</loc>
-    <lastmod>2026-03-07</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -46,6 +46,13 @@
   <url>
     <loc>https://jfnotify.com/blog/free-form-notifications-telegram-wordpress.html</loc>
     <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://jfnotify.com/blog/gravity-forms-notifications-not-working.html</loc>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

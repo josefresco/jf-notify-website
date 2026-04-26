@@ -12,13 +12,9 @@ export default function (eleventyConfig) {
   // Images referenced by homepage variants (keep at site root)
   eleventyConfig.addPassthroughCopy("src/*.png");
 
-  // Homepage (processed as Nunjucks but contains no template syntax — output as-is)
+  // Homepage and success page (passthrough — no template syntax)
   eleventyConfig.addPassthroughCopy("src/index.html");
-  eleventyConfig.addPassthroughCopy("src/index-v1.html");
   eleventyConfig.addPassthroughCopy("src/index-v2.html");
-  eleventyConfig.addPassthroughCopy("src/index-v3.html");
-  eleventyConfig.addPassthroughCopy("src/index-v4.html");
-  eleventyConfig.addPassthroughCopy("src/index-v5.html");
   eleventyConfig.addPassthroughCopy("src/success.html");
 
   // ── Filters ──────────────────────────────────────────────────────────────
