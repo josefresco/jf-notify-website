@@ -14,11 +14,7 @@ export default function (eleventyConfig) {
 
   // Homepage (processed as Nunjucks but contains no template syntax — output as-is)
   eleventyConfig.addPassthroughCopy("src/index.html");
-  eleventyConfig.addPassthroughCopy("src/index-v1.html");
   eleventyConfig.addPassthroughCopy("src/index-v2.html");
-  eleventyConfig.addPassthroughCopy("src/index-v3.html");
-  eleventyConfig.addPassthroughCopy("src/index-v4.html");
-  eleventyConfig.addPassthroughCopy("src/index-v5.html");
   eleventyConfig.addPassthroughCopy("src/success.html");
 
   // ── Filters ──────────────────────────────────────────────────────────────

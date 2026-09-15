@@ -60,7 +60,6 @@ npm run build      # Production build to _site/
 ### Homepage (A/B testing removed)
 - `functions/_middleware.js` is now a pure passthrough (`return context.next()`) — all visitors see the single unified `index.html`
 - Previous 5-variant A/B test (`index-v1` … `index-v5`) was reverted; only `index-v2.html` remains on disk as an orphaned, unrouted leftover
-- `eleventy.config.js` still lists passthrough copies for the deleted `index-v1/v3/v4/v5.html` — these are harmless no-ops (Eleventy skips missing passthrough sources) but should be cleaned up if touching that file
 - `.eleventyignore` still excludes `index.html`, `index-v2.html`, `success.html` from template processing
 
 ### Cloudflare Pages Functions
