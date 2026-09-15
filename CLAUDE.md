@@ -4,20 +4,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Marketing site for the **Gravity Forms Telegram Notifier** WordPress plugin. Built with **Eleventy 3.x** (SSG). Blog/resource pages use shared Nunjucks layouts. Homepage A/B variants are passthrough-copied static HTML files.
+Marketing site for the **Gravity Forms Telegram Notifier** WordPress plugin. Built with **Eleventy 3.x** (SSG). Blog/resource pages use shared Nunjucks layouts. The homepage is a single, unified passthrough-copied static HTML file (A/B testing was removed — see "Homepage" below).
 
 ## Structure
 
 ```
 /
 ├── src/                                # Eleventy input directory
-│   ├── index.html                      # Main homepage (passthrough — dark theme)
-│   ├── index-v1.html … index-v5.html   # A/B test variants (passthrough)
+│   ├── index.html                      # Unified homepage (passthrough — warm/cream theme)
+│   ├── index-v2.html                   # Orphaned legacy A/B variant (unreferenced, not routed to)
 │   ├── success.html                    # Post-purchase thank-you (passthrough)
 │   ├── robots.txt / sitemap.xml / llms.txt
 │   ├── *.png                           # Plugin logo/screenshot assets
 │   ├── assets/
-│   │   └── css/blog.css               # All styles for blog/resource pages
+│   │   └── css/blog.css               # All styles for blog/resource pages (also styles header/footer)
 │   ├── _includes/
 │   │   ├── layouts/
 │   │   │   ├── base.njk               # HTML shell (head, fonts, shared partials)
@@ -50,16 +50,18 @@ npm run build      # Production build to _site/
 ## Architecture
 
 ### Blog / Resource Pages
-- **Light/white design** with dark branded header and footer
+- **Warm/cream light design** (`--bg: #FAFAF5`, amber accent `#C17F24`) with a matching light header and footer (no longer dark-branded)
+- Fonts: **DM Serif Display** (italic, headings/logo) + **DM Mono** (body/nav) — replaced the earlier Bebas Neue + IBM Plex Mono pairing
 - Layout chain: post content → `post.njk` → `base.njk`
-- All styles in `src/assets/css/blog.css` (external file, not embedded)
+- All styles in `src/assets/css/blog.css` (external file, not embedded) — also styles the shared header/footer partials
 - Blog post front matter: `title`, `description`, `date`, `tag`, `readTime`, `ctaTitle`, `ctaText`, `related[]`, `schema`
-- Permalink pattern: `/blog/{{ page.fileSlug }}.html` (preserves existing links in A/B variants)
+- Permalink pattern: `/blog/{{ page.fileSlug }}.html`
 
-### Homepage A/B Testing
-- `functions/_middleware.js` intercepts `/` requests and randomly assigns one of 5 variants
-- Variant files (`index-v1.html` through `index-v5.html`) are passthrough-copied to `_site/`
-- Listed in `.eleventyignore` to prevent Eleventy from treating them as templates
+### Homepage (A/B testing removed)
+- `functions/_middleware.js` is now a pure passthrough (`return context.next()`) — all visitors see the single unified `index.html`
+- Previous 5-variant A/B test (`index-v1` … `index-v5`) was reverted; only `index-v2.html` remains on disk as an orphaned, unrouted leftover
+- `eleventy.config.js` still lists passthrough copies for the deleted `index-v1/v3/v4/v5.html` — these are harmless no-ops (Eleventy skips missing passthrough sources) but should be cleaned up if touching that file
+- `.eleventyignore` still excludes `index.html`, `index-v2.html`, `success.html` from template processing
 
 ### Cloudflare Pages Functions
 - `functions/` directory stays at repo root (not in `src/`) — Cloudflare Pages reads it independently
