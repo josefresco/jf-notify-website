@@ -23,15 +23,16 @@ Marketing site for the **Gravity Forms Telegram Notifier** WordPress plugin. Bui
 │   │   │   ├── base.njk               # HTML shell (head, fonts, shared partials)
 │   │   │   └── post.njk               # Blog post layout (extends base)
 │   │   └── partials/
-│   │       ├── header.njk             # Dark branded header (shared)
-│   │       └── footer.njk             # Dark branded footer (shared)
+│   │       ├── header.njk             # Shared header (warm/cream theme)
+│   │       └── footer.njk             # Shared footer (warm/cream theme)
+│   ├── links.njk                       # /links/ resource page (GF/WordPress/Telegram link cards)
 │   └── blog/
 │       ├── blog.11tydata.json         # Default front matter for all posts
 │       ├── index.njk                  # Blog listing page (/blog/)
 │       └── *.njk                      # Individual blog post templates
 ├── _site/                              # Eleventy build output (gitignored)
 ├── functions/
-│   ├── _middleware.js                  # A/B test router (Cloudflare Pages Function)
+│   ├── _middleware.js                  # Pass-through only (A/B testing removed) — Cloudflare Pages Function
 │   └── api/
 │       └── webhook.js                 # Stripe webhook handler
 ├── eleventy.config.js
@@ -142,5 +143,5 @@ Then add a card for it in `src/blog/index.njk`.
 - [x] Stripe webhook registered at `https://jfnotify.com/api/webhook`
 - [x] Eleventy build configured (build command: `npm run build`, output: `_site`)
 - [ ] Stripe Payment Link success redirect → `https://jfnotify.com/success.html`
-- [ ] Verify Brevo sender email is confirmed
+- [x] Verify Brevo sender email is confirmed — `hello@jfnotify.com` verified, DKIM + DMARC configured for `jfnotify.com` (confirmed 2026-09-15)
 - [ ] End-to-end test purchase
