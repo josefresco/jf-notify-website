@@ -1,0 +1,154 @@
+---
+title: "Gravity Forms Notifications Not Working? A Complete Troubleshooting Guide"
+description: "Gravity Forms notifications not arriving? Step-by-step diagnosis for every common cause — from WordPress email configuration to plugin conflicts — plus a permanent fix that bypasses the problem entirely."
+date: 2026-04-26
+tag: Troubleshooting
+readTime: 9 min read
+ctaTitle: Skip the Troubleshooting. Fix It Permanently.
+ctaText: JF Notify sends Gravity Forms submissions directly to Telegram — no email infrastructure, no spam filters, no configuration headaches. $29 one-time, works in under 10 minutes.
+related:
+  - url: /blog/why-wordpress-email-notifications-fail.html
+    tag: Guide
+    title: Why WordPress Email Notifications Fail (And What Actually Works)
+  - url: /blog/gravity-forms-telegram-push-notifications.html
+    tag: Tutorial
+    title: How to Get Instant Push Notifications from Gravity Forms Using Telegram
+schema: >
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Gravity Forms Notifications Not Working? A Complete Troubleshooting Guide",
+    "description": "Step-by-step diagnosis for every common cause of Gravity Forms notification failures — from WordPress email configuration to plugin conflicts — plus a permanent fix.",
+    "datePublished": "2026-04-26",
+    "dateModified": "2026-04-26",
+    "author": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" },
+    "publisher": { "@type": "Organization", "name": "JF Notify", "url": "https://jfnotify.com/" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://jfnotify.com/blog/gravity-forms-notifications-not-working.html" }
+  }
+---
+
+<p>You submit a test entry, wait, and nothing arrives. Or notifications worked fine for months and suddenly stopped. Or they arrive for some forms but not others. Gravity Forms notification failures are frustratingly common — and because WordPress gives you almost no diagnostic feedback, pinning down the cause takes a methodical approach.</p>
+
+<p>This guide walks through every common cause in order of likelihood, with clear steps to confirm or rule out each one.</p>
+
+<div class="callout">
+  <strong>Before you start</strong>
+  Make sure you're testing with a <em>real</em> form submission, not just the Gravity Forms preview. The preview function does not trigger notifications. Go to the live form on your site and submit it.
+</div>
+
+<h2>Step 1: Check the Gravity Forms Notification Settings</h2>
+
+<p>The most common cause of missing notifications is misconfigured settings — a wrong email address, a disabled notification, or a conditional logic rule that's unintentionally filtering out submissions.</p>
+
+<h3>Verify the notification is active</h3>
+<p>In WordPress admin, go to <strong>Forms &rarr; [Your Form] &rarr; Settings &rarr; Notifications</strong>. You should see at least one notification listed. Check that the toggle next to it is enabled. If you've accidentally created multiple notifications, confirm which ones are active and which are disabled.</p>
+
+<h3>Verify the Send To address</h3>
+<p>Open the notification and check the <strong>Send To</strong> field. If it's set to "Enter Email" mode, confirm the address is correct and has no typos. If it's set to "Select a Field" mode, make sure it's pointing to the right field — and that the field is actually present and required on the form.</p>
+
+<h3>Check conditional logic</h3>
+<p>If you have conditional logic configured on the notification ("Send this notification if..."), that logic may be preventing delivery for certain submissions. Temporarily disable the conditional logic rule and submit the form again to see if the notification arrives.</p>
+
+<h2>Step 2: Check Your Spam Folder</h2>
+
+<p>Before assuming the email was never sent, check the spam or junk folder of the receiving address. WordPress email frequently triggers spam filters because it originates from your hosting server without proper authentication headers.</p>
+
+<p>Also check any email filtering rules or forwarding rules that might be routing the message somewhere unexpected.</p>
+
+<div class="callout callout--red">
+  <strong>Important distinction</strong>
+  A notification ending up in spam means it <em>was</em> delivered — just not to your inbox. The fix is different depending on whether the email was silently dropped (never arrived at the mail server) or delivered to spam (arrived but filtered).
+</div>
+
+<h2>Step 3: Test WordPress Email With a Diagnostic Plugin</h2>
+
+<p>To determine whether WordPress can send email at all from your server, install the free <strong>WP Mail Log</strong> or <strong>Check Email</strong> plugin. These send a test email directly from WordPress and show you whether it was accepted by the local mail handler.</p>
+
+<p>If the test email also fails to arrive, the problem is with WordPress email configuration on your server — not with Gravity Forms specifically. Jump to Step 5.</p>
+
+<p>If the test email <em>does</em> arrive, the problem is more likely in the Gravity Forms notification settings. Go back to Step 1 and review more carefully, or check for plugin conflicts (Step 4).</p>
+
+<h2>Step 4: Check for Plugin Conflicts</h2>
+
+<p>Some plugins intercept wp_mail() and alter how email is handled — SMTP configuration plugins, security plugins, or caching plugins can all interfere with Gravity Forms notifications.</p>
+
+<h3>Common conflict sources</h3>
+<ul>
+  <li><strong>WP Mail SMTP / FluentSMTP / Post SMTP</strong> — If configured incorrectly, these plugins can silently drop email rather than send it through the configured SMTP server</li>
+  <li><strong>Security plugins</strong> (Wordfence, iThemes Security) — Some have email throttling or blocking features</li>
+  <li><strong>Caching plugins</strong> — In rare cases, aggressive caching can interfere with form submission processing</li>
+</ul>
+
+<h3>How to test for conflicts</h3>
+<p>Temporarily deactivate all plugins except Gravity Forms, submit a test entry, and check if the notification arrives. If it does, reactivate plugins one at a time until the failure reappears — that's your conflict.</p>
+
+<div class="callout">
+  <strong>Check your SMTP plugin logs</strong>
+  If you're using an SMTP plugin, go to its log or reports section. Most modern SMTP plugins log every outgoing email with status, timestamp, and any error messages. This is often the fastest way to see whether email was attempted and what happened.
+</div>
+
+<h2>Step 5: Diagnose Server-Level Email Problems</h2>
+
+<p>If WordPress can't send any email at all, the issue is at the hosting level. These are the most common server-side causes:</p>
+
+<h3>Shared hosting IP blocklisted</h3>
+<p>Your hosting server's IP address may be on a spam blocklist due to abuse from other sites on the same server. Check using a free tool like <strong>MXToolbox Blacklist Check</strong> — enter your server's IP address and see if it appears on any blocklists. If it does, contact your host.</p>
+
+<h3>Port 25 blocked</h3>
+<p>Many shared hosts block outgoing connections on port 25 (SMTP) to prevent spam. If your server can't reach an outgoing mail server, email silently fails. Your host's support team can confirm this. The fix is to use an external SMTP service with port 587 or 465 instead.</p>
+
+<h3>Missing SPF/DKIM records</h3>
+<p>Without proper SPF and DKIM DNS records, email from your domain is treated as suspicious by receiving mail servers. Check your domain's DNS records using a tool like <strong>MXToolbox Email Health</strong>. If SPF and DKIM are missing or misconfigured, you'll need to add them via your domain's DNS settings or ask your host to do it.</p>
+
+<h2>Step 6: Check Gravity Forms Entry Logs</h2>
+
+<p>Gravity Forms has a built-in logging system that records notification activity. To enable it, go to <strong>Forms &rarr; Settings &rarr; Logging</strong> and turn on logging. Then submit a test entry and check <strong>Forms &rarr; Entries &rarr; [Entry] &rarr; Notes</strong> for notification status messages.</p>
+
+<p>The log will show whether the notification was triggered, whether wp_mail() was called, and whether it returned success or failure. A "true" return from wp_mail() means WordPress handed the message to the mail server — it does not confirm the email was received.</p>
+
+<h2>Step 7: Switch to a Reliable SMTP Service (Partial Fix)</h2>
+
+<p>If server-level email is the problem, adding a dedicated SMTP service is the standard fix. Install <strong>WP Mail SMTP</strong> and connect it to SendGrid, Mailgun, Postmark, or Gmail's SMTP. This routes all WordPress email — including Gravity Forms notifications — through a proper delivery service with authentication and a clean IP reputation.</p>
+
+<p>This will improve reliability significantly, but it doesn't eliminate the problem entirely:</p>
+
+<ul>
+  <li>Recipient-side spam filters still evaluate the message content</li>
+  <li>SMTP services have free-tier limits; beyond those, you pay monthly</li>
+  <li>You still have no push notifications — you have to check your inbox</li>
+  <li>Email delivery is not guaranteed, even from reputable SMTP providers</li>
+</ul>
+
+<h2>The Permanent Fix: Stop Relying on Email for Notifications</h2>
+
+<p>Every step above is a workaround for a fundamental limitation: WordPress email was not designed for reliable real-time notifications. You can reduce failure rates with SMTP configuration, but you can't eliminate them.</p>
+
+<p>The permanent fix is to use a notification channel that isn't email. <strong>Telegram's Bot API</strong> delivers messages via a direct HTTPS call to Telegram's servers. No mail transfer agent, no spam filter, no IP reputation, no inbox to check — your phone buzzes within seconds of every form submission.</p>
+
+<div class="callout callout--green">
+  <strong>How it works</strong>
+  When a Gravity Forms entry is created, JF Notify makes one HTTPS request to the Telegram Bot API. Telegram delivers it as a push notification to your phone. The entire path: your WordPress server → Telegram's API → your device. No email infrastructure involved.
+</div>
+
+<h3>What you keep</h3>
+<p>You don't have to choose between Telegram and email. Keep your existing Gravity Forms email notification active — it provides a useful archive of submissions in your inbox. Add Telegram as your <em>action</em> channel: the instant notification you act on, while email serves as the record. When the email eventually arrives (or goes to spam), you've already responded to the lead.</p>
+
+<h3>Setup time</h3>
+<p>Getting Telegram notifications working takes about 10 minutes: create a free Telegram bot via @BotFather, install <a href="https://jfnotify.com/">JF Notify</a>, and enter your bot token and chat ID in the plugin settings. See the <a href="/blog/gravity-forms-telegram-push-notifications.html">step-by-step setup guide</a> for the full walkthrough.</p>
+
+<h2>Troubleshooting Checklist</h2>
+
+<ul>
+  <li>Test with a live form submission, not the Gravity Forms preview</li>
+  <li>Confirm the notification is enabled in Forms &rarr; Settings &rarr; Notifications</li>
+  <li>Verify the Send To email address has no typos</li>
+  <li>Disable conditional logic temporarily and retest</li>
+  <li>Check your spam folder and any email filtering rules</li>
+  <li>Run a WordPress email test using WP Mail Log or Check Email</li>
+  <li>Check your SMTP plugin logs if you have one installed</li>
+  <li>Check for plugin conflicts by temporarily deactivating other plugins</li>
+  <li>Check your server IP against spam blocklists via MXToolbox</li>
+  <li>Enable Gravity Forms logging and review entry notes after submission</li>
+</ul>
+
+<p>If you've worked through the full list and email is still unreliable, that's the system working as designed — WordPress email simply wasn't built for guaranteed real-time delivery. At that point, switching the notification channel is more productive than further SMTP debugging.</p>

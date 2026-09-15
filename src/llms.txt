@@ -48,6 +48,7 @@ Telegram is free to use, has a stable public Bot API, delivers messages in under
 - How to Get Push Notifications from Gravity Forms: https://jfnotify.com/blog/gravity-forms-telegram-push-notifications.html
 - Use Telegram as a Backup for WordPress Email: https://jfnotify.com/blog/telegram-backup-wordpress-email.html
 - Free Form Notifications — Skip the Monthly Fees: https://jfnotify.com/blog/free-form-notifications-telegram-wordpress.html
+- Gravity Forms Notifications Not Working? Troubleshooting Guide: https://jfnotify.com/blog/gravity-forms-notifications-not-working.html
 
 ## Links
 
